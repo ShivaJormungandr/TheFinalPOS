@@ -7,13 +7,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 @Stateless
 public class UserBean {
 
     @PersistenceContext
     private EntityManager em;
-
+    //TODO: This class is thrash and needs to be remade! It was used for testing shit
     public void CreateUser(String username, String password, String role, String email) {
         System.getProperties().setProperty("derby.language.sequence.preallocator", String.valueOf(1));
 
@@ -45,19 +46,9 @@ public class UserBean {
 
     public List<UserTable> getAllUsers() {
         try {
-            Query query = em.createQuery("SELECT u FROM UserTable u");
-            List<UserTable> users = (List<UserTable>) query.getResultList();
+            TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findAll", UserTable.class);
+            List<UserTable> users = query.getResultList();
             return users;
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
-    }
-
-    public void getAllRoles() {
-        try {
-            Query query = em.createQuery("SELECT u FROM Role u");
-            List<Role> roles = (List<Role>) query.getResultList();
-            System.out.println(roles);
         } catch (Exception ex) {
             throw new EJBException(ex);
         }

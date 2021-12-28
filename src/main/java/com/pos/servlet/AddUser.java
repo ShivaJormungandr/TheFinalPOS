@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AddUser", urlPatterns = {"/AddUser"})
 public class AddUser extends HttpServlet {
-
     @Inject
     UserBean userBean;
 

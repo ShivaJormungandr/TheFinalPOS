@@ -34,5 +34,13 @@
                 <input type="submit" value="Add" />
             </div>
         </form>
+        <form method="post" action="TestServlet">
+            <div>
+                <input type="text" name="test" />
+            </div>
+            <div>
+                <input type="submit" value="Test" />
+            </div>
+        </form>
     </body>
 </html>
