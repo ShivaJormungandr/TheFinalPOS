@@ -11,6 +11,7 @@ import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -71,5 +72,14 @@ public class RoleBean {
         }
         em.remove(role);
     }
-
+    
+    //THIS IS FOR EXAMPLE PURPOSES ONLY
+    public List<Role> exampleForQuerry(String exampleP, String exampleP2) {
+        Query query = em.createQuery("SELECT x FROM Role x WHERE x.exampleP = :exampleP AND x.exampleP = :exampleP")
+                .setParameter("exampleP", exampleP)
+                .setParameter("exampleP2", exampleP2)
+                .setMaxResults(1);
+        List<Role> results = (List<Role>) query.getResultList();
+        return results;
+    }
 }
