@@ -15,12 +15,17 @@
         <h1>Hello World!?</h1>
         <form method="post" action="AddUser">
             <div>
-                <input type="text" name="username" />
+                Username: <input type="text" name="username" />
             </div>
             <div>
-                <input type="password" name="password" />
+                Password: <input type="password" name="password" />
             </div>
             <div>
+                Name: <input type="text" name="fullname" />
+            </div>
+            <div>
+                Role:
+                <br>
                 <select name="role">
                     <option value="Cashier">Cashier</option>
                     <option value="Director">Director</option>
@@ -28,7 +33,7 @@
                 </select>
             </div>
             <div>
-                <input type="email" name="email" />
+                Email: <input type="email" name="email" />
             </div>
             <div>
                 <input type="submit" value="Add" />

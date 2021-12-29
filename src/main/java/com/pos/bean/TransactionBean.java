@@ -9,8 +9,10 @@ import com.pos.entity.TransactedProducts;
 import com.pos.entity.TransactionTable;
 import com.pos.entity.TransactionType;
 import com.pos.entity.UserTable;
+import com.pos.utility.ParseDateTime;
 import java.util.Date;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -40,17 +42,19 @@ public class TransactionBean {
 
     public List<TransactionTable> getTransactionsBetweenDates(String dateFrom, String dateTo) {
         try {
-            //TODO:Filter query the list between the dates;
-            return null;
+            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.transactionDate BETWEEN :" + ParseDateTime.parseTimestamp(dateFrom) + " AND :" + ParseDateTime.parseTimestamp(dateTo));
+            List<TransactionTable> result = query.getResultList();
+            return result;
         } catch (Exception ex) {
             throw new EJBException(ex);
         }
     }
 
-    public List<TransactionTable> getTransactionsBetweenValues(int valueFrom, int valueTo) {
+    public List<TransactionTable> getTransactionsBetweenValues(double valueFrom, double valueTo) {
         try {
-            //TODO:Filter query the list between the values;
-            return null;
+            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.value BETWEEN :" + valueFrom + " AND :" + valueTo);
+            List<TransactionTable> result = query.getResultList();
+            return result;
         } catch (Exception ex) {
             throw new EJBException(ex);
         }
@@ -58,9 +62,8 @@ public class TransactionBean {
 
     public List<TransactedProducts> getProductsFromTransaction(TransactionTable transaction) {
         try {
-            int transId = transaction.getId();
-            //TODO:Find all products from the specified transaction
-            return null;
+            List<TransactedProducts> result = transaction.getTransactedProductsCollection().stream().collect(toList());
+            return result;
         } catch (Exception ex) {
             throw new EJBException(ex);
         }

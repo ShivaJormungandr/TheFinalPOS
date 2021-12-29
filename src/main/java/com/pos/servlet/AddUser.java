@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Tavi
+ * @author petel
  */
 @WebServlet(name = "AddUser", urlPatterns = {"/AddUser"})
 public class AddUser extends HttpServlet {
@@ -30,29 +30,36 @@ public class AddUser extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String fullName = request.getParameter("fullname");
         String role = request.getParameter("role");
         String email = request.getParameter("email");
 
-        //userBean.CreateUser(username, password, role, email);
+        userBean.CreateUser(username, password, fullName, role, email);
 
-        List<UserTable> x = userBean.getAllUsers();
+        List<UserTable> allUsers = userBean.getAllUsers();
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet AddUser</title>");
             out.println("</head>");
             out.println("<body>");           
-            //out.println("<h1>Servlet AddUser at " + request.getContextPath() + "</h1>");
             
-            out.println("<p>" + "ID " + "USERNAME " + "PASSWORD " + "ID_ROLE " + "ID_STATE " + "EMAIL " + "</p>");
-            for (int i = 0; i < x.size(); i++) {
-                out.println("<p>" + x.get(i).getId() + x.get(i).getUsername() + x.get(i).getPassword() + x.get(i).getIdRole() + x.get(i).getIdState() + x.get(i).getEmail() + "</p>");
+            out.println("<table>");
+            out.println("<tr> <th>ID</th> <th>USERNAME</th> <th>FULLNAME</th> <th>PASSWORD</th>" + " <th>ID_ROLE</th> <th>ID_STATE</th> <th>EMAIL</th> </tr>");
+            if (allUsers.isEmpty()) {
+                out.println("<h1> No users found </h1>");
+            } else {
+                for (UserTable user : allUsers) {
+                    out.println("<tr>" + "<td>" + user.getId() + "</td>" + "<td>" + user.getUsername() + "</td>" + "<td>" + user.getFullname() + "</td>"
+                            + "<td>" + user.getPassword() + "</td>" + "<td>" + user.getIdRole() + "</td>"
+                            + "<td>" + user.getIdState() + "</td>" + "<td>" + user.getEmail() + "</td>" + "</tr>");
+                }
             }
-            
+            out.println("</table>");
+           
             out.println("</body>");
             out.println("</html>");
         }

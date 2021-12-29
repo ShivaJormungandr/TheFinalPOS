@@ -1,6 +1,7 @@
 package com.pos.bean;
 
 import com.pos.entity.*;
+import com.pos.utility.Password;
 import java.util.List;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -14,20 +15,51 @@ public class UserBean {
 
     @PersistenceContext
     private EntityManager em;
-    //TODO: This class is thrash and needs to be remade! It was used for testing shit
-    public void CreateUser(String username, String password, String role, String email) {
+
+    public void CreateUser(String username, String password, String fullName, String role, String email) {
         System.getProperties().setProperty("derby.language.sequence.preallocator", String.valueOf(1));
 
         UserTable user = new UserTable();
-
+        
         user.setUsername(username);
-        user.setPassword(password);
-        System.out.println(role);
+        
+        String hashPassword = Password.convertToSha256(password);
+        user.setPassword(hashPassword);
+        
+        user.setFullname(fullName);
         user.setIdRole(getRoleByName(role));
         user.setIdState(getPendingState());
         user.setEmail(email);
 
         em.persist(user);
+    }
+    
+    public void updateUser(UserTable user, String newUsername, String newPassword, String newFullName, String newRole, String newEmail) {
+        if (!em.contains(user)) {
+            user = em.merge(user);
+        }
+        if (newUsername != null) {
+            user.setUsername(newUsername);
+        }
+        if (newPassword != null) {
+            user.setPassword(newPassword);
+        }
+        if (newFullName != null) {
+            user.setFullname(newFullName);
+        }
+        if (newRole != null) {
+            user.setIdRole(getRoleByName(newRole));
+        }
+        if (newEmail != null) {
+            user.setEmail(newEmail);
+        }
+    }
+    
+    public void deleteUsersByIds(UserTable user) {
+        if (!em.contains(user)) {
+            user = em.merge(user);
+        }
+        em.remove(user);
     }
 
     private State getPendingState() {
@@ -52,6 +84,14 @@ public class UserBean {
         } catch (Exception ex) {
             throw new EJBException(ex);
         }
+    }
+    
+    public UserTable findByUsername(String username) {
+        TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findByUsername", UserTable.class);
+        query.setParameter("username", username);
+        UserTable result = query.getSingleResult();
+
+        return result;
     }
 
     public String getPasswordByUsername(String username) {
