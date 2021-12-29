@@ -34,7 +34,7 @@
                 <input type="submit" value="Add" />
             </div>
         </form>
-        <form method="post" action="TestServlet">
+        <form method="post" action="ShowProducts">
             <div>
                 <input type="text" name="test" />
             </div>

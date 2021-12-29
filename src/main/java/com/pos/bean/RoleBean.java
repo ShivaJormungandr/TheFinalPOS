@@ -52,7 +52,6 @@ public class RoleBean {
         System.getProperties().setProperty("derby.language.sequence.preallocator", String.valueOf(1));
 
         Role role = new Role();
-
         role.setRole(roleName);
 
         em.persist(role);
@@ -75,7 +74,7 @@ public class RoleBean {
     
     //THIS IS FOR EXAMPLE PURPOSES ONLY
     public List<Role> exampleForQuerry(String exampleP, String exampleP2) {
-        Query query = em.createQuery("SELECT x FROM Role x WHERE x.exampleP = :exampleP AND x.exampleP = :exampleP")
+        Query query = em.createQuery("SELECT x FROM Role x WHERE x.exampleP = :exampleP AND x.exampleP2 = :exampleP2")
                 .setParameter("exampleP", exampleP)
                 .setParameter("exampleP2", exampleP2)
                 .setMaxResults(1);

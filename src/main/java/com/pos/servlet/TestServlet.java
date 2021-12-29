@@ -72,9 +72,9 @@ public class TestServlet extends HttpServlet {
             out.println("</table>");
 
             out.println("<p> Role By Id </p>");
-            out.println("<p>" + roleById + "</p>");
+            out.println("<p>" + roleById + roleById.getRole() + "</p>");
             out.println("<p> Role Name </p>");
-            out.println("<p>" + roleByName + "</p>");
+            out.println("<p>" + roleByName + roleByName.getRole() + "</p>");
 
             out.println("<p> All Roles at Start </p>");
             if (!allRolesStart.isEmpty()) {
