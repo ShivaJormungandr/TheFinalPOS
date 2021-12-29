@@ -37,6 +37,7 @@ public class ProductBean {
             throw new EJBException(ex);
         }
     }
+    
     public Product findById(Integer productId) {
         Product product = em.find(Product.class, productId);
         return product;
@@ -84,7 +85,7 @@ public class ProductBean {
         }
     }
 
-    public void deleteProductsByIds(Product product) {
+    public void deleteProduct(Product product) {
         if (!em.contains(product)) {
             product = em.merge(product);
         }

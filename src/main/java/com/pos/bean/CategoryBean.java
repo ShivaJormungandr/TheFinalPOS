@@ -17,8 +17,8 @@ public class CategoryBean {
     public List<Category> getAllCategories() {
         try {
             TypedQuery<Category> query = em.createNamedQuery("Category.findAll", Category.class);
-            List<Category> categories = (List<Category>) query.getResultList();
-            return categories;
+            List<Category> result = (List<Category>) query.getResultList();
+            return result;
         } catch (Exception ex) {
             throw new EJBException(ex);
         }
@@ -52,7 +52,7 @@ public class CategoryBean {
         category.setCategory(newCategoryName);
     }
 
-    public void deleteCategoriesByIds(Category category) {
+    public void deleteCategory(Category category) {
         if (!em.contains(category)) {
             category = em.merge(category);
         }
