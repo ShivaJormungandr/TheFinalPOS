@@ -39,6 +39,9 @@
                 <input type="submit" value="Add" />
             </div>
         </form>
+        
+        <br>
+        
         <form method="post" action="TestServlet">
             <div>
                 <input type="text" name="test" />

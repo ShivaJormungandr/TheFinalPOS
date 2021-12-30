@@ -42,7 +42,7 @@ public class TransactionBean {
 
     public List<TransactionTable> getTransactionsBetweenDates(String dateFrom, String dateTo) {
         try {
-            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.transactionDate BETWEEN :" + ParseDateTime.parseTimestamp(dateFrom) + " AND :" + ParseDateTime.parseTimestamp(dateTo));
+            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.transactionDate BETWEEN '" + ParseDateTime.parseTimestamp(dateFrom) + "' AND '" + ParseDateTime.parseTimestamp(dateTo) + "'");
             List<TransactionTable> result = query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -52,7 +52,7 @@ public class TransactionBean {
 
     public List<TransactionTable> getTransactionsBetweenValues(double valueFrom, double valueTo) {
         try {
-            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.value BETWEEN :" + valueFrom + " AND :" + valueTo);
+            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.value BETWEEN " + valueFrom + " AND " + valueTo);
             List<TransactionTable> result = query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -74,7 +74,7 @@ public class TransactionBean {
         return product;
     }
 
-    public void createTransaction(Date transactionDate, TransactionType type, UserTable user, Date rentalReturnDate) {
+    public void createTransaction(java.sql.Date transactionDate, TransactionType type, UserTable user, java.sql.Date rentalReturnDate) {
         System.getProperties().setProperty("derby.language.sequence.preallocator", String.valueOf(1));
 
         TransactionTable transaction = new TransactionTable();
@@ -89,9 +89,23 @@ public class TransactionBean {
     }
 
     public void addProductToTransaction(TransactionTable transaction, Product product) {
-        TransactedProducts tp = new TransactedProducts();
-        tp.setIdTransaction(transaction);
-        tp.setIdProduct(product);
+        TransactedProducts transactedProducts = new TransactedProducts();
+        
+        transactedProducts.setIdTransaction(transaction);
+        transactedProducts.setIdProduct(product);
+        
+        em.persist(transactedProducts);
+    }
+    
+    public void calculateTotalValue(TransactionTable transaction, List<TransactedProducts> transactedProducts){
+        //TODO: This was made for testing purposes only, just a simple sum
+        Double sum = transactedProducts.stream().mapToDouble(x -> x.getIdProduct().getPrice()).sum();
+        
+        if (!em.contains(transaction)) {
+            transaction = em.merge(transaction);
+        }
+        
+        transaction.setValue(sum);
     }
 
     public void removeProductFromTransaction(TransactionTable transaction, Product product) {

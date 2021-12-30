@@ -5,6 +5,8 @@
 package com.pos.servlet;
 
 import com.pos.bean.RoleBean;
+import com.pos.bean.TransactionBean;
+import com.pos.bean.TransactionTypeBean;
 import com.pos.bean.UserBean;
 import com.pos.entity.Role;
 import com.pos.entity.UserTable;
@@ -104,6 +106,8 @@ public class TestServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

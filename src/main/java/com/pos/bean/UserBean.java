@@ -86,9 +86,17 @@ public class UserBean {
         }
     }
     
-    public UserTable findByUsername(String username) {
+    public UserTable getByUsername(String username) {
         TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findByUsername", UserTable.class);
         query.setParameter("username", username);
+        UserTable result = query.getSingleResult();
+
+        return result;
+    }
+    
+    public UserTable getById(int id) {
+        TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findById", UserTable.class);
+        query.setParameter("id", id);
         UserTable result = query.getSingleResult();
 
         return result;
