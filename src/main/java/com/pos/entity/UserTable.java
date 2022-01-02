@@ -157,7 +157,7 @@ public class UserTable implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.entity.UserTable[ id=" + id + " ]";
+        return "User{" + "username=" + username + ", id=" + id + ", fullName=" + fullname + ", email=" + email + ", role=" + idRole + '}' ;
     }
     
 }

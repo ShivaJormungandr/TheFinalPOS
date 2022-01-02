@@ -18,7 +18,7 @@ import static javax.json.bind.JsonbConfig.DATE_FORMAT;
 public class ParseDateTime {
  
     public static java.sql.Timestamp parseTimestamp(String timestamp) {
-        timestamp += " 00:00:00";
+        //timestamp += " 00:00:00";
         Timestamp t = Timestamp.valueOf(timestamp);
         
         return t;

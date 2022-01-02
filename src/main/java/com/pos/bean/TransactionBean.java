@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
  */
@@ -10,7 +10,6 @@ import com.pos.entity.TransactionTable;
 import com.pos.entity.TransactionType;
 import com.pos.entity.UserTable;
 import com.pos.utility.ParseDateTime;
-import java.util.Date;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import javax.ejb.EJBException;
@@ -69,12 +68,12 @@ public class TransactionBean {
         }
     }
 
-    public TransactionTable findById(Integer productId) {
-        TransactionTable product = em.find(TransactionTable.class, productId);
-        return product;
+    public TransactionTable findById(Integer transactionId) {
+        TransactionTable transaction = em.find(TransactionTable.class, transactionId);
+        return transaction;
     }
 
-    public void createTransaction(java.sql.Date transactionDate, TransactionType type, UserTable user, java.sql.Date rentalReturnDate) {
+    public TransactionTable createTransaction(java.sql.Date transactionDate, TransactionType type, UserTable user, java.sql.Date rentalReturnDate) {
         System.getProperties().setProperty("derby.language.sequence.preallocator", String.valueOf(1));
 
         TransactionTable transaction = new TransactionTable();
@@ -82,13 +81,23 @@ public class TransactionBean {
         if (rentalReturnDate != null) {
             transaction.setRentalReturnDate(rentalReturnDate);
         }
+        
         transaction.setIdType(type);
         transaction.setIdCashier(user);
 
         em.persist(transaction);
+        return transaction;
+    }
+    
+    public void addProductsToTransaction(TransactionTable transaction, List<Product> products) {
+        for (Product p : products) {
+            addProductToTransaction(transaction, p);
+        }
+        
+        calculateTotalValue(transaction, products);
     }
 
-    public void addProductToTransaction(TransactionTable transaction, Product product) {
+    private void addProductToTransaction(TransactionTable transaction, Product product) {
         TransactedProducts transactedProducts = new TransactedProducts();
         
         transactedProducts.setIdTransaction(transaction);
@@ -97,9 +106,9 @@ public class TransactionBean {
         em.persist(transactedProducts);
     }
     
-    public void calculateTotalValue(TransactionTable transaction, List<TransactedProducts> transactedProducts){
+    private void calculateTotalValue(TransactionTable transaction, List<Product> products){
         //TODO: This was made for testing purposes only, just a simple sum
-        Double sum = transactedProducts.stream().mapToDouble(x -> x.getIdProduct().getPrice()).sum();
+        Double sum = products.stream().mapToDouble(x -> x.getPrice()).sum();
         
         if (!em.contains(transaction)) {
             transaction = em.merge(transaction);

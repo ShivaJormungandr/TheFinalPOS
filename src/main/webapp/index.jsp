@@ -12,43 +12,34 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!?</h1>
+        <button onclick="location.href = '/TheFinalPOS/ShowStore'">View All Products</button>
+        <button onclick="location.href = '/TheFinalPOS/Login'">Login</button>
+<!--        <h1>Hello World!?</h1>
         <form method="post" action="AddUser">
             <div>
-                Username: <input type="text" name="username" />
+                Username: <input required type="text" name="username" />
             </div>
             <div>
-                Password: <input type="password" name="password" />
+                Password: <input required type="password" name="password" />
             </div>
             <div>
-                Name: <input type="text" name="fullname" />
+                Name: <input required type="text" name="fullname" />
             </div>
             <div>
                 Role:
                 <br>
-                <select name="role">
+                <select required name="role">
                     <option value="Cashier">Cashier</option>
                     <option value="Director">Director</option>
                     <option value="Admin">Admin</option>
                 </select>
             </div>
             <div>
-                Email: <input type="email" name="email" />
+                Email: <input required type="email" name="email" />
             </div>
             <div>
                 <input type="submit" value="Add" />
             </div>
-        </form>
-        
-        <br>
-        
-        <form method="post" action="TestServlet">
-            <div>
-                <input type="text" name="test" />
-            </div>
-            <div>
-                <input type="submit" value="Test" />
-            </div>
-        </form>
+        </form>-->
     </body>
 </html>
