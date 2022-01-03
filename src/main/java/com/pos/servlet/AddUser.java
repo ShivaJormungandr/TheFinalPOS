@@ -33,35 +33,22 @@ public class AddUser extends HttpServlet {
         String fullName = request.getParameter("fullname");
         String role = request.getParameter("role");
         String email = request.getParameter("email");
-
-        userBean.CreateUser(username, password, fullName, role, email);
-
-        List<UserTable> allUsers = userBean.getAllUsers();
-
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddUser</title>");
-            out.println("</head>");
-            out.println("<body>");           
-            
-            out.println("<table>");
-            out.println("<tr> <th>ID</th> <th>USERNAME</th> <th>FULLNAME</th> <th>PASSWORD</th>" + " <th>ID_ROLE</th> <th>ID_STATE</th> <th>EMAIL</th> </tr>");
-            if (allUsers.isEmpty()) {
-                out.println("<h1> No users found </h1>");
-            } else {
-                for (UserTable user : allUsers) {
-                    out.println("<tr>" + "<td>" + user.getId() + "</td>" + "<td>" + user.getUsername() + "</td>" + "<td>" + user.getFullname() + "</td>"
-                            + "<td>" + user.getPassword() + "</td>" + "<td>" + user.getIdRole() + "</td>"
-                            + "<td>" + user.getIdState() + "</td>" + "<td>" + user.getEmail() + "</td>" + "</tr>");
-                }
-            }
-            out.println("</table>");
-           
-            out.println("</body>");
-            out.println("</html>");
+        String retypePass = request.getParameter("retypePass");
+        
+        UserTable user = null;
+        
+        if(!password.equals(retypePass)){
+            request.setAttribute("err_msg_pass", "Passwords do not match");
+            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
+            return;
+        }
+        
+        try{
+            user = userBean.getByUsername(username);
+            request.setAttribute("err_msg_user", "User Taken");
+            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
+        }catch(Exception ex){
+            userBean.CreateUser(username, password, fullName, role, email);
         }
     }
 
