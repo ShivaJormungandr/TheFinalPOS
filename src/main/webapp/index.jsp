@@ -42,7 +42,7 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="index.html">The Final POS<span>.</span></a></h1>
+      <h1 class="logo"><a href="index.jsp">The Final POS<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="${pageContext.request.contextPath}/assetsLP/img/logo.png" alt=""></a>-->
 

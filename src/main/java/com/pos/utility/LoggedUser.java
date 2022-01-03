@@ -3,7 +3,7 @@ package com.pos.utility;
 import com.pos.entity.UserTable;
 
 public class LoggedUser {
-     private static UserTable loggedUser = null;
+    private static UserTable loggedUser = null;
     
     private LoggedUser(){
         

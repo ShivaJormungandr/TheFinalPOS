@@ -8,6 +8,8 @@ import com.pos.bean.UserBean;
 import com.pos.bean.RoleBean;
 import com.pos.entity.UserTable;
 import com.pos.entity.Role;
+import com.pos.observer.NotificationCenter;
+import com.pos.utility.Notification;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -57,6 +59,10 @@ public class AddUser extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
         }catch(Exception ex){
             userBean.CreateUser(username, password, fullName, role, email);
+            
+            if(Notification.events != null){
+                Notification.events.notify("New registered user is pending approval...");
+            }
         }
     }
 

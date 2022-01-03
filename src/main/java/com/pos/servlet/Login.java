@@ -4,7 +4,9 @@ import com.pos.bean.RoleBean;
 import com.pos.bean.UserBean;
 import com.pos.entity.Role;
 import com.pos.entity.UserTable;
+import com.pos.observer.BrowserNotificationListener;
 import com.pos.utility.LoggedUser;
+import com.pos.utility.Notification;
 import com.pos.utility.Password;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -73,6 +75,9 @@ public class Login extends HttpServlet {
             System.out.println("blaaa");
             request.getRequestDispatcher("/WEB-INF/pages/cashierView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Director"))) {
+            BrowserNotificationListener listener = new BrowserNotificationListener(user.getId());
+            Notification.events.attach(listener);
+            
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
             request.getRequestDispatcher("/WEB-INF/pages/directorView.jsp").forward(request, response);
