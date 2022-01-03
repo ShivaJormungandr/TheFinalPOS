@@ -48,6 +48,7 @@
                     <!-- Left side columns -->
                     <div class="col-lg-8">
                         <div class="row">
+                            <button onclick="location.href = '/TheFinalPOS/Logout'">Logout</button>
                             <!-- Recent Sales -->
                             <div class="col-14">
                                 <div class="card recent-sales">

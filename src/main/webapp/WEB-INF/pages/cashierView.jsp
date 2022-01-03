@@ -14,6 +14,7 @@
             </div>
         </c:if>
         <c:if test="${user.getIdRole() == 'Cashier'}">
+            <button onclick="location.href = '/TheFinalPOS/Logout'">Logout</button>
             <button>Sale</button>
             <button>Return</button>
             <button>Rental</button>

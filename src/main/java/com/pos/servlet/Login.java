@@ -68,6 +68,7 @@ public class Login extends HttpServlet {
 
     private void redirectRole(UserTable user, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         if (user.getIdRole().equals(roleBean.findByName("Cashier"))) {
             System.out.println("blaaa");
             request.getRequestDispatcher("/WEB-INF/pages/cashierView.jsp").forward(request, response);
