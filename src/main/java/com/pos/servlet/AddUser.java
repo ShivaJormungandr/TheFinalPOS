@@ -5,7 +5,9 @@
 package com.pos.servlet;
 
 import com.pos.bean.UserBean;
+import com.pos.bean.RoleBean;
 import com.pos.entity.UserTable;
+import com.pos.entity.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -24,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AddUser extends HttpServlet {
     @Inject
     UserBean userBean;
+    @Inject
+    RoleBean roleBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,8 +41,11 @@ public class AddUser extends HttpServlet {
         
         UserTable user = null;
         
+        List<Role> roles = roleBean.getAllRoles();
+        
         if(!password.equals(retypePass)){
             request.setAttribute("err_msg_pass", "Passwords do not match");
+            request.setAttribute("roles", roles);
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
             return;
         }
@@ -46,6 +53,7 @@ public class AddUser extends HttpServlet {
         try{
             user = userBean.getByUsername(username);
             request.setAttribute("err_msg_user", "User Taken");
+            request.setAttribute("roles", roles);
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
         }catch(Exception ex){
             userBean.CreateUser(username, password, fullName, role, email);
