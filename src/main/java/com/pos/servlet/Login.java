@@ -8,6 +8,7 @@ import com.pos.utility.LoggedUser;
 import com.pos.utility.Password;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,12 @@ public class Login extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        UserTable loggedUser = LoggedUser.getLoggedUser();
+        if (loggedUser != null) {
+            request.setAttribute("user", loggedUser);
+            redirectRole(loggedUser, request, response);
+        }
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -55,16 +62,23 @@ public class Login extends HttpServlet {
 
             request.setAttribute("user", user);
 
-            if (userRole.equals(roleBean.findByName("Cashier"))) {
-                System.out.println("blaaa");
-                request.getRequestDispatcher("/WEB-INF/pages/cashierView.jsp").forward(request, response);
-            } else if (userRole.equals(roleBean.findByName("Director"))) {
-                request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
-            } else if (userRole.equals(roleBean.findByName("Admin"))) {
-                request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
-            }
-
+            redirectRole(user, request, response);
         }
+    }
+
+    private void redirectRole(UserTable user, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (user.getIdRole().equals(roleBean.findByName("Cashier"))) {
+            System.out.println("blaaa");
+            request.getRequestDispatcher("/WEB-INF/pages/cashierView.jsp").forward(request, response);
+        } else if (user.getIdRole().equals(roleBean.findByName("Director"))) {
+            List<UserTable> users = userBean.getAllUsers();
+            request.setAttribute("allUsers", users);
+            request.getRequestDispatcher("/WEB-INF/pages/directorView.jsp").forward(request, response);
+        } else if (user.getIdRole().equals(roleBean.findByName("Admin"))) {
+            request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
+        }
+
     }
 
     @Override

@@ -157,7 +157,7 @@ public class UserTable implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "username=" + username + ", id=" + id + ", fullName=" + fullname + ", email=" + email + ", role=" + idRole + '}' ;
+        return "User{" + "username=" + username + ", id=" + id + ", fullName=" + fullname + ", email=" + email + ", role=" + idRole + ", state=" + idState + '}' ;
     }
     
 }

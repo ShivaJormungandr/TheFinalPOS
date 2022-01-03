@@ -7,3 +7,5 @@ target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 target/TheFinalPOS-1.0-SNAPSHOT/WEB-INF/classes/.netbeans_automatic_build
 target/TheFinalPOS-1.0-SNAPSHOT/index.jsp
 target/TheFinalPOS-1.0-SNAPSHOT.war
+src/main/resources/META-INF/persistence.xml
+src/main/webapp/WEB-INF/glassfish-resources.xml

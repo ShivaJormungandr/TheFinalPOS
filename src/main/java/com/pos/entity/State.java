@@ -96,7 +96,7 @@ public class State implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.entity.State[ id=" + id + " ]";
+        return getState();
     }
     
 }

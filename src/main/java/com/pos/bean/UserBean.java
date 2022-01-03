@@ -20,12 +20,12 @@ public class UserBean {
         System.getProperties().setProperty("derby.language.sequence.preallocator", String.valueOf(1));
 
         UserTable user = new UserTable();
-        
+
         user.setUsername(username);
-        
+
         String hashPassword = Password.convertToSha256(password);
         user.setPassword(hashPassword);
-        
+
         user.setFullname(fullName);
         user.setIdRole(getRoleByName(role));
         user.setIdState(getPendingState());
@@ -33,8 +33,8 @@ public class UserBean {
 
         em.persist(user);
     }
-    
-    public void updateUser(UserTable user, String newUsername, String newPassword, String newFullName, String newRole, String newEmail) {
+
+    public void updateUser(UserTable user, String newUsername, String newPassword, String newFullName, String newRole, String newEmail, String newState) {
         if (!em.contains(user)) {
             user = em.merge(user);
         }
@@ -53,8 +53,11 @@ public class UserBean {
         if (newEmail != null) {
             user.setEmail(newEmail);
         }
+        if (newState != null) {
+            user.setIdState(getStateByName(newState));
+        }
     }
-    
+
     public void deleteUsersByIds(UserTable user) {
         if (!em.contains(user)) {
             user = em.merge(user);
@@ -76,6 +79,13 @@ public class UserBean {
         return r;
     }
 
+    private State getStateByName(String state) {
+        Query query = em.createQuery("SELECT s FROM State s WHERE s.state = :state").setParameter("state", state).setMaxResults(1);
+        State s = (State) query.getSingleResult();
+
+        return s;
+    }
+
     public List<UserTable> getAllUsers() {
         try {
             TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findAll", UserTable.class);
@@ -85,7 +95,7 @@ public class UserBean {
             throw new EJBException(ex);
         }
     }
-    
+
     public UserTable getByUsername(String username) {
         TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findByUsername", UserTable.class);
         query.setParameter("username", username);
@@ -93,7 +103,7 @@ public class UserBean {
 
         return result;
     }
-    
+
     public UserTable getById(int id) {
         TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findById", UserTable.class);
         query.setParameter("id", id);
