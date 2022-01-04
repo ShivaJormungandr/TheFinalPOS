@@ -5,24 +5,68 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>All categories</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+
+        <!-- Favicons -->
+        <link href="${pageContext.request.contextPath}/assets/img/favicon.png" rel="icon">
+        <link href="${pageContext.request.contextPath}/assetsLP/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link href="${pageContext.request.contextPath}/assetsLP/vendor/aos/aos.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/assetsLP/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/assetsLP/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/assetsLP/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/assetsLP/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/assetsLP/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+        <!-- Template Main CSS File -->
+        <link href="${pageContext.request.contextPath}/assetsLP/css/style.css" rel="stylesheet">
     </head>
     <body>
 
-        <h1>Select a category:</h1>
-        <br>
-        <table class="table table-layout-fixed">
-            <thead>
-                <tr>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="category" items="${allCategories}">
-                    <div>
-                        <td><button onclick="location.href = '/TheFinalPOS/ShowProducts?category=${category}'">${category}</button></td>
+        <main id="main">
+            <section id="team" class="team section-bg">
+                <div class="container" data-aos="fade-up">
+
+                    <div class="section-title">
+                        <h3>Choose a category.</h3>
                     </div>
-                </c:forEach>
-            </tbody>
-        </table>
+
+                    <div class="row">
+                       <c:forEach var="category" items="${allCategories}">
+                            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                                <div class="member">
+                                        <div class="member-img">
+                                            <a href="http://localhost:8080/TheFinalPOS/ShowProducts?category=${category}"><img src="${pageContext.request.contextPath}/assetsLP/img/${category}.jpg" height="300px" width="300px" alt=""></a>
+                                        </div>
+                                        <div class="member-info">
+                                            <h1>${category}</h1>
+                                        </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <div id="preloader"></div>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        <!-- Vendor JS Files -->
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/purecounter/purecounter.js"></script>
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/aos/aos.js"></script>
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/waypoints/noframework.waypoints.js"></script>
+        <script src="${pageContext.request.contextPath}/assetsLP/vendor/php-email-form/validate.js"></script>
+
+        <!-- Template Main JS File -->
+        <script src="${pageContext.request.contextPath}/assetsLP/js/main.js"></script>
 </body>
 </html>
