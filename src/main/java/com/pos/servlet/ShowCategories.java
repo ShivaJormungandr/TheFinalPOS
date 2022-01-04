@@ -28,26 +28,15 @@ public class ShowCategories extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
+
+        String actionType = request.getParameter("action");
         List<Category> categories =  categoryBean.getAllCategories();
-       // categories.get(0).getCategory();
-        //System.out.println(categories);
-        request.setAttribute("allCategories", categories);
-        request.getRequestDispatcher("/WEB-INF/pages/categories.jsp").forward(request, response);
         
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet ShowCategories</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet ShowCategories at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+        // here will be cart Type set (sale, rental, return), if () after actionType
+        
+        request.setAttribute("allCategories", categories);
+        request.setAttribute("action", actionType);
+        request.getRequestDispatcher("/WEB-INF/pages/categories.jsp").forward(request, response);
     }
 
     @Override

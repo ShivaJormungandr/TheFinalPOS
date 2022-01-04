@@ -26,29 +26,77 @@
         <!-- Template Main CSS File -->
         <link href="${pageContext.request.contextPath}/assetsLP/css/style.css" rel="stylesheet">
     </head>
-    <body>
+    <body style='background-color:  #f6f9fe' >
 
         <main id="main">
             <section id="team" class="team section-bg">
                 <div class="container" data-aos="fade-up">
 
-                    <div class="section-title">
-                        <h3>Choose a category.</h3>
-                    </div>
-
                     <div class="row">
-                       <c:forEach var="category" items="${allCategories}">
-                            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member">
+                        <c:if test="${action == 'Rental'}">
+
+                            <div class="section-title">
+                                <h3>Choose a category.</h3>
+                            </div>
+                            <c:forEach var="category" items="${allCategories}">
+                                <c:if test="${category == 'Tool'}">
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                                        <div class="member">
+                                            <div class="member-img">
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowProducts?category=${category}"><img src="${pageContext.request.contextPath}/assetsLP/img/${category}.jpg" height="300px" width="300px" alt=""></a>
+                                            </div>
+                                            <div class="member-info">
+                                                <h1>${category}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                            <div class="section-title">
+                                <h3>Scan a product.</h3>
+                                <form action='/TheFinalPOS/ShowCart' method='get'>
+                                    <input name='productId' />
+                                    <input type='submit' value='Scan' />
+                                    <input type='text' name="quantity" value="1" style="visibility: collapse;position: absolute" />
+                                </form>
+                            </div>
+                        </c:if>
+                        <c:if test="${action == 'Sale'}">
+
+                            <div class="section-title">
+                                <h3>Choose a category.</h3>
+                            </div>
+                            <c:forEach var="category" items="${allCategories}">
+                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="member">
                                         <div class="member-img">
                                             <a href="http://localhost:8080/TheFinalPOS/ShowProducts?category=${category}"><img src="${pageContext.request.contextPath}/assetsLP/img/${category}.jpg" height="300px" width="300px" alt=""></a>
                                         </div>
                                         <div class="member-info">
                                             <h1>${category}</h1>
                                         </div>
+                                    </div>
                                 </div>
+                            </c:forEach>
+                            <div class="section-title">
+                                <h3>Scan a product.</h3>
+                                <form action='/TheFinalPOS/ShowCart' method='get'>
+                                    <input name='productId' />
+                                    <input type='submit' value='Scan' />
+                                    <input type='text' name="quantity" value="1" style="visibility: collapse;position: absolute" />
+                                </form>
                             </div>
-                        </c:forEach>
+                        </c:if>
+                        <c:if test="${action == 'Return'}">
+                            <div class="section-title">
+                                <h3>Scan a product you wish to return.</h3>
+                                <form action='/TheFinalPOS/ShowCart' method='get'>
+                                    <input name='productId' />
+                                    <input type='submit' value='Scan' />
+                                    <input type='text' name="quantity" value="1" style="visibility: collapse;position: absolute" />
+                                </form>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </section>
@@ -68,5 +116,5 @@
 
         <!-- Template Main JS File -->
         <script src="${pageContext.request.contextPath}/assetsLP/js/main.js"></script>
-</body>
+    </body>
 </html>

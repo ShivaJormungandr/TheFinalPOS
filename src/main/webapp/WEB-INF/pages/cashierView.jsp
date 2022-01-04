@@ -28,7 +28,7 @@
         <link href="${pageContext.request.contextPath}/assetsLP/css/style.css" rel="stylesheet">
 
     </head>
-    <body>
+    <body style='background-color:  #f6f9fe'>
         <c:if test="${user.getIdRole() != 'Cashier'}">
             <div class="alert alert-warning" role="alert">
                 nu esti cashier
@@ -52,7 +52,7 @@
                                 <div class="member">
                                     <c:if test="${type == 'Sale'}" >
                                         <div class="member-img">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                         </div>
                                         <div class="member-info">
                                             <h1>${type}</h1>
@@ -60,7 +60,7 @@
                                     </c:if>
                                     <c:if test="${type == 'Rental'}" >
                                         <div class="member-img">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Rental"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                         </div>
                                         <div class="member-info">
                                             <h1>${type}</h1>
@@ -68,7 +68,7 @@
                                     </c:if>
                                     <c:if test="${type == 'Return'}" >
                                         <div class="member-img">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Return"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                         </div>
                                         <div class="member-info">
                                             <h1>${type}</h1>

@@ -22,11 +22,13 @@ public class ShowCart extends HttpServlet {
             throws ServletException, IOException {
         
         List<Product> productsInCart = null;
-        
+        System.out.println(request.getParameter("quantity"));
         if (request.getParameter("quantity") != null && request.getParameter("productId") != null) {
              
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             int productId = Integer.parseInt(request.getParameter("productId"));
+            System.out.println(quantity);
+                        System.out.println(productId);
 
             Product productToAdd = productBean.findById(productId);
 
