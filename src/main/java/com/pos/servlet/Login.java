@@ -1,8 +1,10 @@
 package com.pos.servlet;
 
 import com.pos.bean.RoleBean;
+import com.pos.bean.TransactionTypeBean;
 import com.pos.bean.UserBean;
 import com.pos.entity.Role;
+import com.pos.entity.TransactionType;
 import com.pos.entity.UserTable;
 import com.pos.observer.BrowserNotificationListener;
 import com.pos.utility.LoggedUser;
@@ -26,6 +28,9 @@ public class Login extends HttpServlet {
 
     @Inject
     RoleBean roleBean;
+    
+    @Inject
+    TransactionTypeBean transactionTypeBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,21 +44,24 @@ public class Login extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        UserTable user = null;
-
-        if (username == null || username == "") {
-            request.setAttribute("err_msg", "Invalid username.");
+        if ((username == null || username == "") && (password == null || password == "")) {
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
+        
+        UserTable user = null;
 
         try {
             user = userBean.getByUsername(username);
         } catch (Exception ex) {
             ex.printStackTrace();
+            request.setAttribute("err_msg_user", "Invalid username.");
+            request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
-//!user.getPassword().equals(Password.convertToSha256(password))
-        if (1 == 2) {
-            request.setAttribute("err_msg", "Invalid password.");
+        
+        System.out.println(user);
+        System.out.println(password);
+        if (!user.getPassword().equals(Password.convertToSha256(password))) {
+            request.setAttribute("err_msg_pass", "Passwords do not match");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         } else {
             System.out.println(user);
@@ -72,7 +80,8 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         
         if (user.getIdRole().equals(roleBean.findByName("Cashier"))) {
-            System.out.println("blaaa");
+            List<TransactionType> types = transactionTypeBean.getAllCategories();
+            request.setAttribute("types", types);
             request.getRequestDispatcher("/WEB-INF/pages/cashierView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Director"))) {
             BrowserNotificationListener listener = new BrowserNotificationListener(user.getId());

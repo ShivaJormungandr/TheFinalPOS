@@ -62,12 +62,18 @@
                                                     <input type="text" name="username" class="form-control" id="yourUsername" required>
                                                     <div class="invalid-feedback">Please enter your username.</div>
                                                 </div>
+                                                <c:if test="${err_msg_user != null}">
+                                                    <div style="color: #bb2d3b">${err_msg_user}</div>
+                                                </c:if>
                                             </div>
                                             <div class="col-12">
                                                 <label for="yourPassword" class="form-label">Password</label>
-                                                <input type="password" name="passwword" class="form-control" id="yourPassword" required>
+                                                <input type="password" name="password" class="form-control" id="yourPassword" required>
                                                 <div class="invalid-feedback">Please enter your password!</div>
                                             </div>
+                                            <c:if test="${err_msg_pass != null}">
+                                                <div style="color: #bb2d3b">${err_msg_pass}</div>
+                                            </c:if>
                                             <div class="col-12">
                                                 <button class="btn btn-primary w-100" type="submit">Login</button>
                                             </div>
