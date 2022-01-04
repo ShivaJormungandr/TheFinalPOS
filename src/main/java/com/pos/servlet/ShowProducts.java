@@ -39,8 +39,10 @@ public class ShowProducts extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         //List<Product> allProducts = productBean.getAllProducts();
-        Category category = categoryBean.findByName(request.getParameter("category"));
-
+                System.out.println("trece prin servlet");
+        String categoryName = request.getParameter("category");
+        System.out.println(categoryName);
+        Category category = categoryBean.findByName(categoryName);
 //        Cart cart = new Cart();
         List<Product> productsByCategory = productBean.getAllProductsByCategory(category);
         request.setAttribute("products", productsByCategory);

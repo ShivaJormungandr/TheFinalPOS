@@ -97,7 +97,6 @@ public class Category implements Serializable {
     @Override
     public String toString() {
         return getCategory();
-        //return "com.pos.entity.Category[ id=" + id + " ]";
     }
     
 }
