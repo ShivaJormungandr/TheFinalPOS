@@ -96,7 +96,7 @@ public class TransactionType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.entity.TransactionType[ id=" + id + " ]";
+        return getType();
     }
     
 }

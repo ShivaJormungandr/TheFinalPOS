@@ -34,15 +34,15 @@
 
                         <!--</form>-->
                     </c:forEach>
-                        
+
                     <p>Please select your receipt type: </p>
                     <input type="radio" name="receiptType" value="simple">
                     <label for="html">Simple</label><br>
                     <input type="radio" name="receiptType" value="complex">
                     <label for="css">Complex</label><br>
-                    
+
                     <br>
-                    
+
                     <input type="submit" value="Proceed to buy" />
                 </form>
             </table>
