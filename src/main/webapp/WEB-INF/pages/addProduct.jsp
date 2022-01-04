@@ -47,7 +47,13 @@
                   <span class="d-none d-lg-block">The Final POS</span>
                 </a>
               </div><!-- End Logo -->
-
+              <c:if test="${succes_msg != null}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle me-1"></i>
+                  ${succes_msg}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+               </c:if>
               <div class="card mb-3">
 
                 <div class="card-body">

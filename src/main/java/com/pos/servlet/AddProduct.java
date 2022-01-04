@@ -76,6 +76,7 @@ public class AddProduct extends HttpServlet {
         List<Unit> units = unitBean.getAllUnits();
         request.setAttribute("categories", categories);
         request.setAttribute("units", units);
+        request.setAttribute("succes_msg", "Item added to the stock!");
         request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
     }
 
