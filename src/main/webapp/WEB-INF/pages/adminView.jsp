@@ -7,7 +7,7 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-        <title>Dashboard - NiceAdmin Bootstrap Template</title>
+        <title>Admin</title>
         <meta content="" name="description" />
         <meta content="" name="keywords" />
 
@@ -41,7 +41,7 @@
         <link href="assets/css/style.css" rel="stylesheet" />
     </head>
 
-    <body class="toggle-sidebar toggle-">
+    <body>
         <main id="main" class="main">
             <section class="section dashboard">
                 <div class="row">
@@ -49,27 +49,10 @@
                     <div class="col-lg-8">
                         <div class="row">
                             <button onclick="location.href = '/TheFinalPOS/Logout'">Logout</button>
-                            <button onclick="location.href = '/TheFinalPOS/AddProduct'">Add Product</button>
+                            <button onclick="location.href = '/TheFinalPOS/Register'">Register Account</button>
                             <!-- Recent Sales -->
                             <div class="col-14">
                                 <div class="card recent-sales">
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"
-                                           ><i class="bi bi-three-dots"></i
-                                            ></a>
-                                        <ul
-                                            class="
-                                            dropdown-menu dropdown-menu-end dropdown-menu-arrow
-                                            "
-                                            >
-                                            <li class="dropdown-header text-start">
-                                                <h6>Filter</h6>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">Pending</a></li>
-                                            <li><a class="dropdown-item" href="#">Accepted</a></li>
-                                            <li><a class="dropdown-item" href="#">Rejected</a></li>
-                                        </ul>
-                                    </div>
                                     <div class="card-body">
                                         <div class="card-body">
                                             <h5 class="card-title">Users</h5>
@@ -96,6 +79,7 @@
                                                                 <th scope="col">Email</th>
                                                                 <th scope="col">Role</th>
                                                                 <th scope="col">Status</th>
+                                                                <th scope="col"></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -111,6 +95,26 @@
                                                                         <c:if test="${user.idState == 'Accepted'}">
                                                                             <td>
                                                                                 <span class="badge bg-success">${user.idState}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredA">Delete</button>
+                                                                                <div class="modal fade" id="verticalycenteredA" tabindex="-1">
+                                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                                      <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                          <h5 class="modal-title">Delete User</h5>
+                                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                          Are you sure you want to delete ${user.fullname}?
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                          <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${user.id}'">Delete</button>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>
@@ -167,7 +171,6 @@
                                                                 <th scope="col">Role</th>
                                                                 <th scope="col">Status</th>
                                                                 <th></th>
-                                                                <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -185,10 +188,24 @@
                                                                                 <span class="badge bg-warning">${user.idState}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${user.id}&action=Accepted'">Accept</button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${user.id}&action=Rejected'">Reject</button>
+                                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredP">Delete</button>
+                                                                                <div class="modal fade" id="verticalycenteredP" tabindex="-1">
+                                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                                      <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                          <h5 class="modal-title">Delete User</h5>
+                                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                          Are you sure you want to delete ${user.fullname}?
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                          <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${user.id}'">Delete</button>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>
@@ -230,4 +247,3 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
-

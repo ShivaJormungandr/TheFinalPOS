@@ -63,6 +63,10 @@ public class AddUser extends HttpServlet {
             if(Notification.events != null){
                 Notification.events.notify("New registered user is pending approval...");
             }
+            
+            List<UserTable> users = userBean.getAllUsers();
+            request.setAttribute("allUsers", users);
+            request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
         }
     }
 

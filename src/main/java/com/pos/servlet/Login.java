@@ -91,6 +91,8 @@ public class Login extends HttpServlet {
             request.setAttribute("allUsers", users);
             request.getRequestDispatcher("/WEB-INF/pages/directorView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Admin"))) {
+            List<UserTable> users = userBean.getAllUsers();
+            request.setAttribute("allUsers", users);
             request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
         }
 

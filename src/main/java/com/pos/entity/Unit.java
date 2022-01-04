@@ -96,7 +96,7 @@ public class Unit implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.entity.Unit[ id=" + id + " ]";
+        return getUnit();
     }
     
 }
