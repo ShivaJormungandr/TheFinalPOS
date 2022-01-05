@@ -1,6 +1,6 @@
 package com.pos.servlet;
 
-import com.pos.utility.LoggedUser;
+import com.pos.utility.LoggedUsers;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +14,10 @@ public class Logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if (LoggedUser.getLoggedUser() != null){
-            LoggedUser.setLoggedUser(null);
-            response.sendRedirect("http://localhost:8080/TheFinalPOS/");
-        }
+//        if (LoggedUsers.getLoggedUser() != null){
+//            LoggedUsers.setLoggedUser(null);
+//            response.sendRedirect("http://localhost:8080/TheFinalPOS/");
+//        }
         
     }
 

@@ -9,7 +9,7 @@ import com.pos.builder.ReceiptType;
 import com.pos.entity.Product;
 import com.pos.entity.TransactionTable;
 import com.pos.utility.Cart;
-import com.pos.utility.LoggedUser;
+import com.pos.utility.LoggedUsers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -44,7 +44,7 @@ public class ProcessSale extends HttpServlet {
         System.out.println(sum);
         
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-        TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName("Sale"), LoggedUser.getLoggedUser(), null);
+        TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName("Sale"),LoggedUsers.getLoggedUsers().get(1), null);
         
         transactionBean.addProductsToTransaction(currentTransaction, productsInCart);
         
@@ -65,7 +65,7 @@ public class ProcessSale extends HttpServlet {
             builder.setTotalAmount(sum);
             builder.setTaxesAmount(sum * 0.19);
             builder.setDate(date);
-            builder.setCashier(LoggedUser.getLoggedUser());
+            //builder.setCashieLoggedUserser.getLoggedUser());
         }
         
         Receipt receipt = builder.getResult();

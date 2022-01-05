@@ -36,51 +36,52 @@
         </c:if>
         <c:if test="${user.getIdRole() == 'Cashier'}">
             <button style="position: absolute" onclick="location.href = '/TheFinalPOS/Logout'">Logout</button>
-        </c:if>
-        <main id="main">
+            <main id="main">
 
-            <section id="team" class="team section-bg">
-                <div class="container" data-aos="fade-up">
+                <section id="team" class="team section-bg">
+                    <div class="container" data-aos="fade-up">
 
-                    <div class="section-title">
-                        <h3>Choose an action.</h3>
-                    </div>
+                        <div class="section-title">
+                            <h3>Choose an action.</h3>
+                        </div>
 
-                    <div class="row">
-                        <c:forEach var="type" items="${types}">
-                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member">
-                                    <c:if test="${type == 'Sale'}" >
-                                        <div class="member-img">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
-                                        </div>
-                                        <div class="member-info">
-                                            <h1>${type}</h1>
-                                        </div>
-                                    </c:if>
-                                    <c:if test="${type == 'Rental'}" >
-                                        <div class="member-img">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Rental"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
-                                        </div>
-                                        <div class="member-info">
-                                            <h1>${type}</h1>
-                                        </div>
-                                    </c:if>
-                                    <c:if test="${type == 'Return'}" >
-                                        <div class="member-img">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Return"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
-                                        </div>
-                                        <div class="member-info">
-                                            <h1>${type}</h1>
-                                        </div>
-                                    </c:if>
+                        <div class="row">
+                            <c:forEach var="type" items="${types}">
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="member">
+                                        <c:if test="${type == 'Sale'}" >
+                                            <div class="member-img">
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                            </div>
+                                            <div class="member-info">
+                                                <h1>${type}</h1>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${type == 'Rental'}" >
+                                            <div class="member-img">
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Rental"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                            </div>
+                                            <div class="member-info">
+                                                <h1>${type}</h1>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${type == 'Return'}" >
+                                            <div class="member-img">
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Return"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                            </div>
+                                            <div class="member-info">
+                                                <h1>${type}</h1>
+                                            </div>
+                                        </c:if>
+                                    </div>
                                 </div>
-                            </div>
-                        </c:forEach>
+                            </c:forEach>
+                        </div>
                     </div>
-                </div>
-            </section>
-        </main>
+                </section>
+            </main>
+        </c:if>
+
         <div id="preloader"></div>
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
