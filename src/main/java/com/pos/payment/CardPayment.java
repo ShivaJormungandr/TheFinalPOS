@@ -8,7 +8,7 @@ package com.pos.payment;
  *
  * @author Tavi
  */
-public class CardPayment implements Payment {
+/*public class CardPayment implements Payment {
 
     @Override
     public void pay() {
@@ -20,4 +20,4 @@ public class CardPayment implements Payment {
         return 0;
     }
     
-}
+}*/

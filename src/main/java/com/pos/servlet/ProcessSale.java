@@ -65,7 +65,7 @@ public class ProcessSale extends HttpServlet {
             builder.setTotalAmount(sum);
             builder.setTaxesAmount(sum * 0.19);
             builder.setDate(date);
-            //builder.setCashieLoggedUserser.getLoggedUser());
+            builder.setCashier(transactionBean.findById(currentTransaction.getId()).getIdCashier());
         }
         
         Receipt receipt = builder.getResult();
