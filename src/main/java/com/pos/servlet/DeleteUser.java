@@ -2,6 +2,7 @@ package com.pos.servlet;
 
 import com.pos.bean.UserBean;
 import com.pos.entity.UserTable;
+import com.pos.utility.LoggedUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -32,6 +33,7 @@ public class DeleteUser extends HttpServlet {
             request.setAttribute("delete_msg", "User " + user + " has been deleted!");
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
+            request.setAttribute("loggedUser", LoggedUser.getLoggedUser().getFullname());
             request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
         }catch(Exception ex){
             ex.printStackTrace();

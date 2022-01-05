@@ -28,7 +28,12 @@ public class UserBean {
 
         user.setFullname(fullName);
         user.setIdRole(getRoleByName(role));
-        user.setIdState(getPendingState());
+        if(role.equals("Cashier")){
+            user.setIdState(getStateByName("Pending"));
+        }
+        else{
+            user.setIdState(getStateByName("Accepted"));
+        }
         user.setEmail(email);
 
         em.persist(user);
@@ -63,13 +68,6 @@ public class UserBean {
             user = em.merge(user);
         }
         em.remove(user);
-    }
-
-    private State getPendingState() {
-        Query query = em.createQuery("SELECT s FROM State s WHERE s.state = :state").setParameter("state", "Pending").setMaxResults(1);
-        State state = (State) query.getSingleResult();
-
-        return state;
     }
 
     private Role getRoleByName(String role) {

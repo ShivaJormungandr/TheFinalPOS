@@ -42,14 +42,51 @@
     </head>
 
     <body>
+        <header id="header" class="header fixed-top d-flex align-items-center">
+
+                <div class="d-flex align-items-center justify-content-between">
+                  <a href="index.jsp" class="logo d-flex align-items-center">
+                    <img src="assets/img/logo.png" alt="">
+                    <span class="d-none d-lg-block">The Final POS</span>
+                  </a>
+                </div><!-- End Logo -->
+                <nav class="header-nav ms-auto">
+                  <ul class="d-flex align-items-center">
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Register'"><i class="bi bi-collection"></i> Register account</button>
+                    </li>
+                    <li class="nav-item dropdown pe-3">
+                      <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser}</span>
+                      </a><!-- End Profile Iamge Icon -->
+
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                          <h6>${loggedUser}</h6>
+                          <span>Admin</span>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout'">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Sign Out</span>
+                          </a>
+                        </li>
+
+                      </ul><!-- End Profile Dropdown Items -->
+                    </li><!-- End Profile Nav -->
+
+                  </ul>
+                </nav><!-- End Icons Navigation -->
+        </header>
         <main id="main" class="main">
             <section class="section dashboard">
                 <div class="row">
                     <!-- Left side columns -->
                     <div class="col-lg-8">
                         <div class="row">
-                            <button onclick="location.href = '/TheFinalPOS/Logout'">Logout</button>
-                            <button onclick="location.href = '/TheFinalPOS/Register'">Register Account</button>
                             <!-- Recent Sales -->
                             <div class="col-14">
                                 <div class="card recent-sales">

@@ -66,6 +66,7 @@ public class AddUser extends HttpServlet {
             
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
+            request.setAttribute("loggedUser", fullName);
             request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
         }
     }

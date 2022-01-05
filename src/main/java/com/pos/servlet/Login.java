@@ -86,13 +86,14 @@ public class Login extends HttpServlet {
         } else if (user.getIdRole().equals(roleBean.findByName("Director"))) {
             BrowserNotificationListener listener = new BrowserNotificationListener(user.getId());
             Notification.events.attach(listener);
-            
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
+            request.setAttribute("loggedUser", user.getFullname());
             request.getRequestDispatcher("/WEB-INF/pages/directorView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Admin"))) {
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
+            request.setAttribute("loggedUser", user.getFullname());
             request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
         }
 
