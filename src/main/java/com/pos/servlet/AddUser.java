@@ -6,6 +6,7 @@ package com.pos.servlet;
 
 import com.pos.bean.UserBean;
 import com.pos.bean.RoleBean;
+import com.pos.decorator.ConsoleDecorator;
 import com.pos.entity.UserTable;
 import com.pos.entity.Role;
 import com.pos.observer.NotificationCenter;
@@ -60,8 +61,14 @@ public class AddUser extends HttpServlet {
         }catch(Exception ex){
             userBean.CreateUser(username, password, fullName, role, email);
             
+            Notification.notificationCount++;
             if(Notification.events != null){
                 Notification.events.notify("New registered user is pending approval...");
+            }
+            
+            if(Notification.decoratorEvents == null){
+                Notification.decoratorEvents = new ConsoleDecorator();
+                Notification.decoratorEvents.notify("New registered user is pending approval...");
             }
             
             List<UserTable> users = userBean.getAllUsers();
