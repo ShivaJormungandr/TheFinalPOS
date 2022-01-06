@@ -5,29 +5,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoggedUsers {
-    private static List<UserTable> loggedUsers = null;
+    private List<UserTable> loggedUsers = null;
+    
+    private static LoggedUsers instance = null;
+    
+    public static LoggedUsers getInstance(){
+        if (instance == null) {
+            instance = new LoggedUsers();
+        }
+        
+        return instance;
+    }
     
     private LoggedUsers(){
         
     }
     
-    public static List<UserTable> getLoggedUsers(){
+    public List<UserTable> getLoggedUsers(){
         return loggedUsers;
     }
     
-    public static void addLoggedUser(UserTable user) {
+    public void addLoggedUser(UserTable user) {
         if (loggedUsers == null) {
             loggedUsers = new ArrayList<UserTable>();
         }
         
         loggedUsers.add(user);
     }
+    
+    public UserTable getLoggedUserById(int userId) {
+        for (UserTable user : loggedUsers) {
+            if (user.getId() == userId){
+                return user;
+            }
+        }
+        
+        return null;
+    }
 
-    public static void logoutUser(UserTable user) {
+    public void logoutUser(UserTable user) {
         loggedUsers.remove(user);
     }
     
-    public static boolean isUserLogged(UserTable user) {
+    public boolean isUserLogged(UserTable user) {
         return loggedUsers.contains(user);
     }
 }

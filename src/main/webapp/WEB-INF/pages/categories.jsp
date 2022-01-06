@@ -43,7 +43,7 @@
                                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                                         <div class="member">
                                             <div class="member-img">
-                                                <a href="http://localhost:8080/TheFinalPOS/ShowProducts?category=${category}"><img src="${pageContext.request.contextPath}/assetsLP/img/${category}.jpg" height="300px" width="300px" alt=""></a>
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowProducts?category=${category}&cashierId=${cashierId}"><img src="${pageContext.request.contextPath}/assetsLP/img/${category}.jpg" height="300px" width="300px" alt=""></a>
                                             </div>
                                             <div class="member-info">
                                                 <h1>${category}</h1>
@@ -57,6 +57,7 @@
                                 <form action='/TheFinalPOS/ShowCart' method='get'>
                                     <input name='productId' />
                                     <input type='submit' value='Scan' />
+                                    <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
                                     <input type='text' name="quantity" value="1" style="visibility: collapse;position: absolute" />
                                 </form>
                             </div>
@@ -70,7 +71,7 @@
                                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                                     <div class="member">
                                         <div class="member-img">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowProducts?category=${category}"><img src="${pageContext.request.contextPath}/assetsLP/img/${category}.jpg" height="300px" width="300px" alt=""></a>
+                                            <a href="http://localhost:8080/TheFinalPOS/ShowProducts?category=${category}&cashierId=${cashierId}"><img src="${pageContext.request.contextPath}/assetsLP/img/${category}.jpg" height="300px" width="300px" alt=""></a>
                                         </div>
                                         <div class="member-info">
                                             <h1>${category}</h1>
@@ -83,6 +84,7 @@
                                 <form action='/TheFinalPOS/ShowCart' method='get'>
                                     <input name='productId' />
                                     <input type='submit' value='Scan' />
+                                    <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
                                     <input type='text' name="quantity" value="1" style="visibility: collapse;position: absolute" />
                                 </form>
                             </div>
@@ -93,6 +95,7 @@
                                 <form action='/TheFinalPOS/ShowCart' method='get'>
                                     <input name='productId' />
                                     <input type='submit' value='Scan' />
+                                    <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
                                     <input type='text' name="quantity" value="1" style="visibility: collapse;position: absolute" />
                                 </form>
                             </div>

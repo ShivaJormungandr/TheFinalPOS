@@ -43,7 +43,7 @@ public class View extends HttpServlet {
             response.sendRedirect("http://localhost:8080/TheFinalPOS/");
         }
         
-        if (LoggedUsers.isUserLogged(loggedUser)) {
+        if (LoggedUsers.getInstance().isUserLogged(loggedUser)) {
             redirectRole(loggedUser, request, response);
         }else {
             response.sendRedirect("http://localhost:8080/TheFinalPOS/");

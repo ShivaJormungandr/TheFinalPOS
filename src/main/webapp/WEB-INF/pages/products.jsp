@@ -42,7 +42,7 @@
             <div class="d-flex align-items-center justify-content-between">
                 <a href="index.jsp" class="logo d-flex align-items-center">
                     <img src="assets/img/logo.png" alt="">
-                    <span class="d-none d-lg-block">NiceAdmin</span>
+                    <span class="d-none d-lg-block">The FinalPOS</span>
                 </a>
             </div><!-- End Logo -->
         </header><!-- End Header -->
@@ -82,7 +82,7 @@
                                                 <td><input type='textbox' name="quantity" value='0' id='tbQuantity${i}'/> </td>
                                                 <td><input type="button" id='addQty' value="➕" onclick='increaseQuantity(${i})' /></td>
                                             <input style="visibility: collapse" name="productId" value="${product.id}" />
-                                            <td><input type="button" onclick='addToCart(${i})' value="🛒" id='addToCart' /></td>
+                                            <td><input type="button" onclick='addToCart(${i},${product.id}, ${cashierId})' value="🛒" id='addToCart' /></td>
 
                                             <c:set var="i" value="${i + 1}" scope="page"/>
                                             </tr>
@@ -131,9 +131,9 @@
                         qty--;
                     tb.value = qty;
                 }
-                function addToCart(id) {
-                    let quantity = document.getElementById('tbQuantity' + id).value;
-                    location.href = '/TheFinalPOS/ShowCart?productId='+ id + '&quantity=' + quantity;
+                function addToCart(index,productId, cashierId) {
+                    let quantity = document.getElementById('tbQuantity' + index).value;
+                    location.href = '/TheFinalPOS/ShowCart?productId='+ productId + '&quantity=' + quantity + '&cashierId=' + cashierId;
                 }
         </script>
     </body>

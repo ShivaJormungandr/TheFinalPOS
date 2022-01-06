@@ -30,7 +30,7 @@ public class UpdateUserState extends HttpServlet {
         UserTable userToUpdate = userBean.getById(userId);
         userBean.updateUser(userToUpdate, null, null, null, null, null, action);
         
-        response.sendRedirect("http://localhost:8080/TheFinalPOS/Login");
+        response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId="+userId);
     }
 
     @Override

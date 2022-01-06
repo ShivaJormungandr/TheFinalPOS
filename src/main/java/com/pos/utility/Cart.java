@@ -7,18 +7,14 @@ import java.util.List;
 public class Cart {
     private List<Product> productsInCart = null;
     
-    private static Cart cart = null;
+    private int cashierId;
     
-    private Cart(){
+    public Cart(){
         
     }
-
-    public static Cart getInstance()
-    {
-        if (cart == null)
-            cart = new Cart();
- 
-        return cart;
+    
+    public Cart(int cashierId){
+        setCashierId(cashierId);
     }
 
     public List<Product> getProductsInCart() {
@@ -38,5 +34,17 @@ public class Cart {
     public void clearCart() {
         productsInCart.clear();
     }
+    
+    public int getCashierId(){
+        return cashierId;
+    }
 
+    public void setCashierId(int cashierId) {
+        this.cashierId = cashierId;
+    }
+    
+    @Override
+    public String toString(){
+        return "Sunt un carut cu cashierId " + cashierId;
+    }
 }

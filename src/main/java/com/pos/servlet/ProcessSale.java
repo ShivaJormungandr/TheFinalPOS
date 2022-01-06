@@ -9,6 +9,7 @@ import com.pos.builder.ReceiptType;
 import com.pos.entity.Product;
 import com.pos.entity.TransactionTable;
 import com.pos.utility.Cart;
+import com.pos.utility.CurrentCarts;
 import com.pos.utility.LoggedUsers;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,12 +40,15 @@ public class ProcessSale extends HttpServlet {
         
         //TODO: Fix process sale, this is for example purposes only
         
-        List<Product> productsInCart = Cart.getInstance().getProductsInCart();
+        int cashierId = Integer.parseInt(request.getParameter("cashierId"));
+        
+        List<Product> productsInCart = CurrentCarts.getInstance().getCartByCashierId(cashierId).getProductsInCart();
+        System.out.println(productsInCart);
         double sum = productsInCart.stream().mapToDouble(p -> p.getPrice()).sum();
         System.out.println(sum);
         
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-        TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName("Sale"),LoggedUsers.getLoggedUsers().get(1), null);
+        TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName("Sale"),LoggedUsers.getInstance().getLoggedUserById(cashierId), null);
         
         transactionBean.addProductsToTransaction(currentTransaction, productsInCart);
         
@@ -112,7 +116,7 @@ public class ProcessSale extends HttpServlet {
             out.println("</html>");
         }
         
-        Cart.getInstance().clearCart();
+        CurrentCarts.getInstance().getCartByCashierId(cashierId).clearCart();
     }
 
     @Override

@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Cart</title>
     </head>
     <body>
         <h1>Cart</h1>
@@ -42,7 +42,7 @@
                     <label for="css">Complex</label><br>
 
                     <br>
-
+                    <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
                     <input type="submit" value="Proceed to buy" />
                 </form>
             </table>

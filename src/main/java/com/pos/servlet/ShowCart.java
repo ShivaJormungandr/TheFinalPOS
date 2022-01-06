@@ -3,6 +3,7 @@ package com.pos.servlet;
 import com.pos.bean.ProductBean;
 import com.pos.entity.Product;
 import com.pos.utility.Cart;
+import com.pos.utility.CurrentCarts;
 import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;
@@ -23,25 +24,32 @@ public class ShowCart extends HttpServlet {
         
         List<Product> productsInCart = null;
         System.out.println(request.getParameter("quantity"));
+        System.out.println(request.getParameter("cashierId"));
+        int cashierId = Integer.parseInt(request.getParameter("cashierId"));
+        Cart currentCart = CurrentCarts.getInstance().getCartByCashierId(cashierId);
+
         if (request.getParameter("quantity") != null && request.getParameter("productId") != null) {
              
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             int productId = Integer.parseInt(request.getParameter("productId"));
+            
             System.out.println(quantity);
-                        System.out.println(productId);
+            System.out.println(productId);
 
             Product productToAdd = productBean.findById(productId);
 
-            Cart.getInstance().enterItem(productToAdd, quantity);
+            currentCart.enterItem(productToAdd, quantity);
             
-            productsInCart = Cart.getInstance().getProductsInCart();
+            productsInCart = currentCart.getProductsInCart();
         }
         
-        if (Cart.getInstance().getProductsInCart() != null){
-            productsInCart = Cart.getInstance().getProductsInCart();
+        if (currentCart.getProductsInCart() != null){
+            productsInCart = currentCart.getProductsInCart();
         }
         
         request.setAttribute("productsInCart", productsInCart);
+        request.setAttribute("cashierId", cashierId);
+        
         request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }
 

@@ -6,6 +6,7 @@ package com.pos.servlet;
 
 import com.pos.bean.CategoryBean;
 import com.pos.entity.Category;
+import com.pos.utility.CurrentCarts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,10 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author adrian.larionescu
- */
 @WebServlet(name = "ShowCategories", urlPatterns = {"/ShowCategories"})
 public class ShowCategories extends HttpServlet {
 
@@ -30,12 +27,17 @@ public class ShowCategories extends HttpServlet {
             throws ServletException, IOException {
 
         String actionType = request.getParameter("action");
+        int cashierId = Integer.parseInt(request.getParameter("cashierId"));
         List<Category> categories =  categoryBean.getAllCategories();
         
         // here will be cart Type set (sale, rental, return), if () after actionType
         
+        CurrentCarts.getInstance().createNewCartForCashier(cashierId);
+        
         request.setAttribute("allCategories", categories);
         request.setAttribute("action", actionType);
+        request.setAttribute("cashierId", cashierId);
+
         request.getRequestDispatcher("/WEB-INF/pages/categories.jsp").forward(request, response);
     }
 

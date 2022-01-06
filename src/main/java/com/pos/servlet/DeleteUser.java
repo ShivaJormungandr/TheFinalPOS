@@ -33,7 +33,7 @@ public class DeleteUser extends HttpServlet {
             request.setAttribute("delete_msg", "User " + user + " has been deleted!");
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
-            request.setAttribute("loggedUser", LoggedUsers.getLoggedUsers().get(1).getFullname());
+            request.setAttribute("loggedUser", LoggedUsers.getInstance().getLoggedUserById(id).getFullname());
             request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
         }catch(Exception ex){
             ex.printStackTrace();

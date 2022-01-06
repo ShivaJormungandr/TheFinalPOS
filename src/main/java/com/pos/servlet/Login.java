@@ -52,7 +52,7 @@ public class Login extends HttpServlet {
             request.setAttribute("err_msg_pass", "Passwords do not match");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         } else {
-            LoggedUsers.addLoggedUser(user);
+            LoggedUsers.getInstance().addLoggedUser(user);
 
             response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + user.getId());
         }

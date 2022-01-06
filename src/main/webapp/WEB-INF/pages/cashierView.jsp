@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Cashier view</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
 
@@ -51,7 +51,7 @@
                                     <div class="member">
                                         <c:if test="${type == 'Sale'}" >
                                             <div class="member-img">
-                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale&cashierId=${user.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                             </div>
                                             <div class="member-info">
                                                 <h1>${type}</h1>
@@ -59,7 +59,7 @@
                                         </c:if>
                                         <c:if test="${type == 'Rental'}" >
                                             <div class="member-img">
-                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Rental"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Rental&cashierId=${user.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                             </div>
                                             <div class="member-info">
                                                 <h1>${type}</h1>
@@ -67,7 +67,7 @@
                                         </c:if>
                                         <c:if test="${type == 'Return'}" >
                                             <div class="member-img">
-                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Return"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Return&cashierId=${user.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                             </div>
                                             <div class="member-info">
                                                 <h1>${type}</h1>
