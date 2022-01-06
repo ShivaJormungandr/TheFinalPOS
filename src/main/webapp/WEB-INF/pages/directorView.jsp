@@ -69,18 +69,20 @@
             <li>
               <hr class="dropdown-divider">
             </li>
+            
+            <c:forEach begin="1" end="${notificationCount}">
+                <li class="notification-item">
+                    <i class="bi bi-exclamation-circle text-warning"></i>
+                    <div>
+                      <h4>New User!</h4>
+                      <p>${notificationMessage.message}</p>
+                    </div>
+                </li>
 
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>New User!</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+            </c:forEach>
 
           </ul><!-- End Notification Dropdown Items -->
 

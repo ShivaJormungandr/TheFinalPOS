@@ -3,6 +3,7 @@ package com.pos.servlet;
 import com.pos.bean.StateBean;
 import com.pos.bean.UserBean;
 import com.pos.entity.UserTable;
+import com.pos.utility.Notification;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.inject.Inject;
@@ -29,6 +30,10 @@ public class UpdateUserState extends HttpServlet {
       
         UserTable userToUpdate = userBean.getById(userId);
         userBean.updateUser(userToUpdate, null, null, null, null, null, action);
+        
+        if(Notification.notificationCount > 0){
+            Notification.notificationCount--;
+        }
         
         response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId="+userId);
     }

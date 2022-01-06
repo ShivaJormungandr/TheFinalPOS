@@ -1,15 +1,19 @@
 package com.pos.observer;
 
 public class BrowserNotificationListener implements EventListener {
-    private Integer id;
+    public String message;
     
-    public BrowserNotificationListener(Integer id){
-        this.id = id;
+    public BrowserNotificationListener(){
     }
     
     @Override
     public void update(String message) {
-        System.out.println(message);    
+        System.out.println(message);
+        
+        this.message = message;
     }
-
+    
+    public String getMessage(){
+        return this.message;
+    }
 }

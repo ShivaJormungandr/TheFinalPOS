@@ -67,13 +67,13 @@ public class View extends HttpServlet {
             
             request.getRequestDispatcher("/WEB-INF/pages/cashierView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Director"))) {
-            BrowserNotificationListener listener = new BrowserNotificationListener(user.getId());
-            Notification.events.attach(listener);
-            Notification.decoratorEvents.attach(listener);
+            Notification.events.attach(Notification.listener);
+            Notification.decoratorEvents.attach(Notification.listener);
 
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
             request.setAttribute("notificationCount", Notification.notificationCount);
+            request.setAttribute("notificationMessage", Notification.listener);
             request.getRequestDispatcher("/WEB-INF/pages/directorView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Admin"))) {
             List<UserTable> users = userBean.getAllUsers();
