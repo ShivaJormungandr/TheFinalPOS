@@ -23,8 +23,8 @@ public class ShowCart extends HttpServlet {
             throws ServletException, IOException {
         
         List<Product> productsInCart = null;
-        System.out.println(request.getParameter("quantity"));
-        System.out.println(request.getParameter("cashierId"));
+//        System.out.println(request.getParameter("quantity"));
+//        System.out.println(request.getParameter("cashierId"));
         int cashierId = Integer.parseInt(request.getParameter("cashierId"));
         Cart currentCart = CurrentCarts.getInstance().getCartByCashierId(cashierId);
 
@@ -33,12 +33,13 @@ public class ShowCart extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             int productId = Integer.parseInt(request.getParameter("productId"));
             
-            System.out.println(quantity);
-            System.out.println(productId);
+//            System.out.println(quantity);
+//            System.out.println(productId);
 
             Product productToAdd = productBean.findById(productId);
 
-            currentCart.enterItem(productToAdd, quantity);
+//            System.out.println(currentCart);
+            currentCart.enterItems(productToAdd, quantity);
             
             productsInCart = currentCart.getProductsInCart();
         }

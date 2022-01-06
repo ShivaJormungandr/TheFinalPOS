@@ -38,15 +38,11 @@ public class ShowProducts extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //List<Product> allProducts = productBean.getAllProducts();
-                System.out.println("trece prin servlet");
         String categoryName = request.getParameter("category");
         int cashierId = Integer.parseInt(request.getParameter("cashierId"));
-        
-        
-        System.out.println(categoryName);
+
         Category category = categoryBean.findByName(categoryName);
-//        Cart cart = new Cart();
+
         List<Product> productsByCategory = productBean.getAllProductsByCategory(category);
         request.setAttribute("products", productsByCategory);
         request.setAttribute("cashierId", cashierId);

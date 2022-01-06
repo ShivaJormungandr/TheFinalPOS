@@ -42,7 +42,8 @@ public class ProcessSale extends HttpServlet {
         
         int cashierId = Integer.parseInt(request.getParameter("cashierId"));
         
-        List<Product> productsInCart = CurrentCarts.getInstance().getCartByCashierId(cashierId).getProductsInCart();
+        Cart currentCart = CurrentCarts.getInstance().getCartByCashierId(cashierId);
+        List<Product> productsInCart = currentCart.getProductsInCart();
         System.out.println(productsInCart);
         double sum = productsInCart.stream().mapToDouble(p -> p.getPrice()).sum();
         System.out.println(sum);
@@ -60,6 +61,8 @@ public class ProcessSale extends HttpServlet {
             builder.setTitle("SIMPLE: Multumim ca ati ales saptamana comunista Lidl!");
             builder.setProducts(productsInCart);
             builder.setTotalAmount(sum);
+            builder.setDate(date);
+            builder.setCashier(transactionBean.findById(currentTransaction.getId()).getIdCashier());
         }
         else{
             builder.setReceiptType(ReceiptType.COMPLEX);
@@ -111,12 +114,12 @@ public class ProcessSale extends HttpServlet {
                 out.println("<br><tr>Cashier username: " + receipt.getCashier().getUsername() + "</tr>");
             }
             out.println("</table>");
-           
+            out.println("<button onclick='location.href=\"/TheFinalPOS/View?userId=" + cashierId + "\"'>New sale</button>");
             out.println("</body>");
             out.println("</html>");
         }
         
-        CurrentCarts.getInstance().getCartByCashierId(cashierId).clearCart();
+        currentCart.proceedPayment();
     }
 
     @Override

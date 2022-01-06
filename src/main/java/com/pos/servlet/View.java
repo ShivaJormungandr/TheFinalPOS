@@ -6,6 +6,7 @@ import com.pos.bean.UserBean;
 import com.pos.entity.TransactionType;
 import com.pos.entity.UserTable;
 import com.pos.observer.BrowserNotificationListener;
+import com.pos.utility.CurrentCarts;
 import com.pos.utility.LoggedUsers;
 import com.pos.utility.Notification;
 import java.io.IOException;
@@ -54,12 +55,16 @@ public class View extends HttpServlet {
     private void redirectRole(UserTable user, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println(user);
         request.setAttribute("user", user);
 
         if (user.getIdRole().equals(roleBean.findByName("Cashier"))) {
             List<TransactionType> types = transactionTypeBean.getAllCategories();
             request.setAttribute("types", types);
+            
+            if (CurrentCarts.getInstance().doesCashierHaveCart(user.getId())) {
+                CurrentCarts.getInstance().getCartByCashierId(user.getId()).getCartState().initializeCart(user.getId());
+            }
+            
             request.getRequestDispatcher("/WEB-INF/pages/cashierView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Director"))) {
             BrowserNotificationListener listener = new BrowserNotificationListener(user.getId());

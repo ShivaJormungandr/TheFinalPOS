@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if ((username == null || username == "") && (password == null || password == "")) {
+        if ((username == null || "".equals(username)) && (password == null || "".equals(password))) {
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
         
@@ -46,8 +46,8 @@ public class Login extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
         
-        System.out.println(user);
-        System.out.println(password);
+//        System.out.println(user);
+//        System.out.println(password);
         if (!user.getPassword().equals(Password.convertToSha256(password))) {
             request.setAttribute("err_msg_pass", "Passwords do not match");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);

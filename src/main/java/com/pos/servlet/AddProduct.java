@@ -38,8 +38,6 @@ public class AddProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        
         String name = request.getParameter("name");
         if(name == null || name == ""){
             List<Category> categories = categoryBean.getAllCategories();

@@ -1,41 +1,71 @@
 package com.pos.utility;
 
+import com.pos.cartstate.AddingProducts;
+import com.pos.cartstate.CartState;
+import com.pos.cartstate.EmptyCart;
+import com.pos.cartstate.PaymentEnded;
 import com.pos.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart {
+public final class Cart{
+
+    CartState empty;
+    CartState addingProducts;
+    CartState paymentEnded;
+
+    CartState currentState;
+
     private List<Product> productsInCart = null;
-    
+
     private int cashierId;
-    
-    public Cart(){
-        
+
+    public Cart() {
+
     }
-    
-    public Cart(int cashierId){
-        setCashierId(cashierId);
+
+    public Cart(int cashierId) {
+        empty = new EmptyCart(this);
+        addingProducts = new AddingProducts(this);
+        paymentEnded = new PaymentEnded(this);
+
+        currentState = empty;
+        currentState.initializeCart(cashierId);
     }
 
     public List<Product> getProductsInCart() {
         return productsInCart;
     }
-    
-    public void enterItem(Product product, int quantity) {
-        if (productsInCart == null) {
-            productsInCart = new ArrayList<Product>();
-        }
-        
+
+    public void enterItems(Product product, int quantity) {
         for (int i = 0; i < quantity; i++) {
-            productsInCart.add(product);
+            enterItem(product);
         }
     }
     
-    public void clearCart() {
-        productsInCart.clear();
+    public void enterItem(Product product) {
+        currentState.enterItem(product);
     }
     
-    public int getCashierId(){
+    
+    public void initialize(int cashierId) {
+        this.cashierId = cashierId;
+        productsInCart = new ArrayList();
+    }
+
+    public void removeItem(Product product) {
+        currentState.removeItem(product);
+    }
+
+    public void clearCart() {
+        productsInCart = null;
+    }
+    
+    public void proceedPayment(){
+        currentState.proceedPayment();
+    }
+
+    public int getCashierId() {
         return cashierId;
     }
 
@@ -43,8 +73,29 @@ public class Cart {
         this.cashierId = cashierId;
     }
     
+    public void setCartState(CartState state) {
+        currentState = state;
+    }
+    
+    public CartState getCartState(){
+        return currentState;
+    }
+
+    public CartState getEmptyState() {
+        return empty;
+    }
+
+    public CartState getAddingProductsState() {
+        return addingProducts;
+    }
+
+    public CartState getPaymentEndedState() {
+        return paymentEnded;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Sunt un carut cu cashierId " + cashierId;
     }
+
 }
