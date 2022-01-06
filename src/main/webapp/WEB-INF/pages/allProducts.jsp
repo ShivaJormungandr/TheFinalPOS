@@ -69,11 +69,11 @@
                                         <li class="dropdown-header text-start">
                                             <h6>Filter</h6>
                                         </li>
-                                        <li><a class="dropdown-item" href="#">All</a></li>
-                                        <li><a class="dropdown-item" href="#">Food</a></li>
-                                        <li><a class="dropdown-item" href="#">Toy</a></li>
-                                        <li><a class="dropdown-item" href="#">Tool</a></li>
-                                        <li><a class="dropdown-item" href="#">Alcohol</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore"">All</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Food">Food</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Toy">Toy</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Tool">Tool</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Alcohol">Alcohol</a></li>
                                        
                                     </ul>
                                 </div>
