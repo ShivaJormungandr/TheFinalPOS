@@ -8,10 +8,11 @@ package com.pos.payment;
  *
  * @author Tavi
  */
-public class CardPayment implements Payment {
+public class ProcessCardPayment extends ProcessPayment{
 
     @Override
-    public String pay() {
-        return "Thanks for paying with the card";
+    public Payment createPayment() {
+        return new CardPayment();
     }
+    
 }

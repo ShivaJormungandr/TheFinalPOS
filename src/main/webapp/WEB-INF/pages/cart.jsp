@@ -41,6 +41,12 @@
                     <input type="radio" name="receiptType" value="complex">
                     <label for="css">Complex</label><br>
 
+                    <p>Please select the payment type: </p>
+                    <input type="radio" name="paymentType" value="cash">
+                    <label for="html">Cash</label><br>
+                    <input type="radio" name="paymentType" value="card">
+                    <label for="css">Card</label><br>
+
                     <br>
                     <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
                     <input type="submit" value="Proceed to buy" />
