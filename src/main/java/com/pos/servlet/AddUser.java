@@ -11,6 +11,7 @@ import com.pos.entity.UserTable;
 import com.pos.entity.Role;
 import com.pos.observer.NotificationCenter;
 import com.pos.utility.Notification;
+import com.pos.utility.Password;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AddUser", urlPatterns = {"/AddUser"})
 public class AddUser extends HttpServlet {
+
     @Inject
     UserBean userBean;
     @Inject
@@ -41,36 +43,81 @@ public class AddUser extends HttpServlet {
         String role = request.getParameter("role");
         String email = request.getParameter("email");
         String retypePass = request.getParameter("retypePass");
-        
-        UserTable user = null;
-        
+
         List<Role> roles = roleBean.getAllRoles();
-        
-        if(!password.equals(retypePass)){
+
+        boolean needsEdit = request.getParameter("action").equals("edit");
+        int loggedAdminId = Integer.parseInt(request.getParameter("loggedId"));
+
+        if (needsEdit) {
+            int userIdToUpdate = Integer.parseInt(request.getParameter("userId"));
+
+            UserTable userToUpdate = userBean.getById(userIdToUpdate);
+
+            if (username.equals(userToUpdate.getUsername())) {
+                username = null;
+            } else {
+                try {
+                    UserTable someUser = userBean.getByUsername(username);
+                    request.setAttribute("err_msg_user", "User Taken");
+                    request.setAttribute("roles", roles);
+                    request.setAttribute("user", userToUpdate);
+                    request.setAttribute("loggedId", loggedAdminId);
+
+                    request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
+                } catch (Exception ex) {
+                    
+                }
+            }
+
+            if (!password.equals("******")) {
+                if (!password.equals(retypePass)) {
+                    request.setAttribute("err_msg_pass", "Passwords do not match");
+                    request.setAttribute("roles", roles);
+                    request.setAttribute("user", userToUpdate);
+                    request.setAttribute("loggedId", loggedAdminId);
+
+                    request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
+                } else {
+                    password = Password.convertToSha256(password);
+                }
+            } else {
+                password = null;
+            }
+            
+            userBean.updateUser(userToUpdate, username, password, fullName, role, email, null);
+            response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + loggedAdminId);
+
+            return;
+        }
+
+        UserTable user = null;
+
+        if (!password.equals(retypePass)) {
             request.setAttribute("err_msg_pass", "Passwords do not match");
             request.setAttribute("roles", roles);
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
             return;
         }
-        
-        try{
+
+        try {
             user = userBean.getByUsername(username);
             request.setAttribute("err_msg_user", "User Taken");
             request.setAttribute("roles", roles);
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             userBean.CreateUser(username, password, fullName, role, email);
-            
+
             Notification.notificationCount++;
-            if(Notification.events != null){
+            if (Notification.events != null) {
                 Notification.events.notify("New registered user is pending approval...");
             }
-            
-            if(Notification.decoratorEvents == null){
+
+            if (Notification.decoratorEvents == null) {
                 Notification.decoratorEvents = new ConsoleDecorator();
                 Notification.decoratorEvents.notify("New registered user is pending approval...");
             }
-            
+
             List<UserTable> users = userBean.getAllUsers();
             request.setAttribute("allUsers", users);
             request.setAttribute("loggedUser", fullName);

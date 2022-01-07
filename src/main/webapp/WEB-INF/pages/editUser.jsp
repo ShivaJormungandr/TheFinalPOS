@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Register</title>
+  <title>Edit User</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -53,27 +53,26 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Register a new account</h5>
-                    <p class="text-center small">Enter the details to create account</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Edit account</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/AddUser" method="post">
-                    <div class="col-12">
+                  <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/AddUser?action=edit" method="post">
+                      <input value="${loggedId}" name="loggedId" style="visibility: collapse; position: absolute" />
+                      <input value="${user.getId()}" name="userId" style="visibility: collapse; position: absolute" />
+                      <div class="col-12">
                       <label for="yourName" class="form-label">Name</label>
-                      <input type="text" name="fullname" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
+                      <input type="text" value="${user.getFullname()}" name="fullname" class="form-control" id="yourName" required>
                     </div>
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email address!</div>
+                      <input type="email" value="${user.getEmail()}" name="email" class="form-control" id="yourEmail" required>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" value="${user.getUsername()}" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please choose a username.</div>
                       </div>
                       <c:if test="${err_msg_user != null}">
@@ -83,8 +82,8 @@
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <input type="password" value="******" name="password" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Passwords do not match!</div>
                       <c:if test="${err_msg_pass != null}">
                           <div style="color: #bb2d3b">${err_msg_pass}</div>
                       </c:if>
@@ -92,8 +91,7 @@
                       
                     <div class="col-12">
                       <label for="yourRetypePassword" class="form-label">Retype Password</label>
-                      <input type="password" name="retypePass" class="form-control" id="yourRetypePassword" required>
-                      <div class="invalid-feedback">Please retype your password!</div>
+                      <input type="password" value="******" name="retypePass" class="form-control" id="yourRetypePassword" required>
                     </div>
                       
                     <div class="col-12">
@@ -106,14 +104,7 @@
                     </div>
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <button class="btn btn-primary w-100" type="submit">Edit Account</button>
                     </div>
                   </form>
 
@@ -121,10 +112,6 @@
               </div>
 
               <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
                 Designed by <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Me</a>
               </div>
 

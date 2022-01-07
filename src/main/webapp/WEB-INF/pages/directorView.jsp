@@ -158,17 +158,17 @@
                                                         </thead>
                                                         <tbody>
                                                             <c:set var="i" value="1" scope="page" />
-                                                            <c:forEach var="user" items="${allUsers}">
-                                                                <c:if test="${user.idState == 'Accepted'}">
+                                                            <c:forEach var="usera" items="${allUsers}">
+                                                                <c:if test="${usera.idState == 'Accepted'}">
                                                                     <tr>
                                                                         <th>${i}</th>
-                                                                        <td>${user.fullname}</td>
-                                                                        <td>${user.username}</td>
-                                                                        <td>${user.email}</td>
-                                                                        <td>${user.getIdRole()}</td>
-                                                                        <c:if test="${user.idState == 'Accepted'}">
+                                                                        <td>${usera.fullname}</td>
+                                                                        <td>${usera.username}</td>
+                                                                        <td>${usera.email}</td>
+                                                                        <td>${usera.getIdRole()}</td>
+                                                                        <c:if test="${usera.idState == 'Accepted'}">
                                                                             <td>
-                                                                                <span class="badge bg-success">${user.idState}</span>
+                                                                                <span class="badge bg-success">${usera.idState}</span>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>
@@ -192,18 +192,18 @@
                                                         </thead>
                                                         <tbody>
                                                             <c:set var="i" value="1" scope="page" />
-                                                            <c:forEach var="user" items="${allUsers}">
-                                                                <c:if test="${user.idState == 'Rejected'}">
+                                                            <c:forEach var="userr" items="${allUsers}">
+                                                                <c:if test="${userr.idState == 'Rejected'}">
                                                                     <tr>
                                                                         <th>${i}</th>
-                                                                        <td>${user.fullname}</td>
-                                                                        <td>${user.username}</td>
-                                                                        <td>${user.email}</td>
-                                                                        <td>${user.getIdRole()}</td>
+                                                                        <td>${userr.fullname}</td>
+                                                                        <td>${userr.username}</td>
+                                                                        <td>${userr.email}</td>
+                                                                        <td>${userr.getIdRole()}</td>
 
-                                                                        <c:if test="${user.idState == 'Rejected'}">
+                                                                        <c:if test="${userr.idState == 'Rejected'}">
                                                                             <td>
-                                                                                <span class="badge bg-danger">${user.idState}</span>
+                                                                                <span class="badge bg-danger">${userr.idState}</span>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>
@@ -230,23 +230,23 @@
                                                         </thead>
                                                         <tbody>
                                                             <c:set var="i" value="1" scope="page" />
-                                                            <c:forEach var="user" items="${allUsers}">
-                                                                <c:if test="${user.idState == 'Pending'}">
+                                                            <c:forEach var="userp" items="${allUsers}">
+                                                                <c:if test="${userp.idState == 'Pending'}">
                                                                     <tr>
                                                                         <th>${i}</th>
-                                                                        <td>${user.fullname}</td>
-                                                                        <td>${user.username}</td>
-                                                                        <td>${user.email}</td>
-                                                                        <td>${user.getIdRole()}</td>
-                                                                        <c:if test="${user.idState == 'Pending'}">
+                                                                        <td>${userp.fullname}</td>
+                                                                        <td>${userp.username}</td>
+                                                                        <td>${userp.email}</td>
+                                                                        <td>${userp.getIdRole()}</td>
+                                                                        <c:if test="${userp.idState == 'Pending'}">
                                                                             <td>
-                                                                                <span class="badge bg-warning">${user.idState}</span>
+                                                                                <span class="badge bg-warning">${userp.idState}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${user.id}&action=Accepted'">Accept</button>
+                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${userp.id}&action=Accepted'">Accept</button>
                                                                             </td>
                                                                             <td>
-                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${user.id}&action=Rejected'">Reject</button>
+                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${userp.id}&action=Rejected'">Reject</button>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>

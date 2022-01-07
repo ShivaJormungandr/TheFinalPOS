@@ -1,8 +1,12 @@
 package com.pos.servlet;
 
+import com.pos.bean.CategoryBean;
+import com.pos.bean.ProductBean;
 import com.pos.bean.RoleBean;
 import com.pos.bean.TransactionTypeBean;
 import com.pos.bean.UserBean;
+import com.pos.entity.Category;
+import com.pos.entity.Product;
 import com.pos.entity.TransactionType;
 import com.pos.entity.UserTable;
 import com.pos.observer.BrowserNotificationListener;
@@ -27,6 +31,12 @@ public class View extends HttpServlet {
 
     @Inject
     RoleBean roleBean;
+    
+    @Inject
+    ProductBean productBean;
+    
+    @Inject
+    CategoryBean categoryBean;
 
     @Inject
     TransactionTypeBean transactionTypeBean;
@@ -74,10 +84,17 @@ public class View extends HttpServlet {
             request.setAttribute("allUsers", users);
             request.setAttribute("notificationCount", Notification.notificationCount);
             request.setAttribute("notificationMessage", Notification.listener);
+            
             request.getRequestDispatcher("/WEB-INF/pages/directorView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Admin"))) {
             List<UserTable> users = userBean.getAllUsers();
+            List<Product> allProducts = productBean.getAllProducts();
+            List<Category> allCategories = categoryBean.getAllCategories();
+            
             request.setAttribute("allUsers", users);
+            request.setAttribute("allProducts", allProducts);
+            request.setAttribute("allCategories", allCategories);
+            
             request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
         }
 
