@@ -65,7 +65,8 @@ public class View extends HttpServlet {
     private void redirectRole(UserTable user, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("user", user);
+        request.setAttribute("loggedUser", user);
+        
 
         if (user.getIdRole().equals(roleBean.findByName("Cashier"))) {
             List<TransactionType> types = transactionTypeBean.getAllCategories();

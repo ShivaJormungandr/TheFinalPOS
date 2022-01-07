@@ -24,12 +24,17 @@ public class Reports extends HttpServlet {
 
     @Inject
     TransactionBean transactionBean;
+    
+    @Inject
+    UserBean userBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String report = null;
         report = request.getParameter("report");
+        int loggedId = Integer.parseInt(request.getParameter("loggedUserId"));
+        request.setAttribute("loggedUser", userBean.getById(loggedId));
 
         if (report != null) {
             if (report.equals("all")) {

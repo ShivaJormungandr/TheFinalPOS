@@ -58,6 +58,8 @@
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/AddUser" method="post">
+                    <input type="text" value="${loggedUser.getId()}" name="loggedUserId" style="visibility: collapse; position: absolute" />
+
                     <div class="col-12">
                       <label for="yourName" class="form-label">Name</label>
                       <input type="text" name="fullname" class="form-control" id="yourName" required>

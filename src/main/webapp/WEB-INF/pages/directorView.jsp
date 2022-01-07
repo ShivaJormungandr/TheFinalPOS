@@ -53,12 +53,10 @@
             </div><!-- End Logo -->
             <nav class="header-nav ms-auto">
                 <ul class="d-flex align-items-center">
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct'"><i class="bi bi-collection"></i> Add Product</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Add Product</button>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Reports'"><i class="bi bi-collection"></i> Reports</button>
-                    </li>
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Reports?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Reports</button>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
@@ -94,19 +92,19 @@
                     <li class="nav-item dropdown pe-3">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-block dropdown-toggle ps-2">${user.getFullname()}</span>
+                            <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser.getFullname()}</span>
                         </a><!-- End Profile Iamge Icon -->
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                             <li class="dropdown-header">
-                                <h6>${user.getFullname()}</h6>
-                                <span>${user.getIdRole()}</span>
+                                <h6>${loggedUser.getFullname()}</h6>
+                                <span>${loggedUser.getIdRole()}</span>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout'">
+                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout?loggedUserId=${loggedUser.id}'">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Sign Out</span>
                                 </a>
@@ -158,17 +156,17 @@
                                                         </thead>
                                                         <tbody>
                                                             <c:set var="i" value="1" scope="page" />
-                                                            <c:forEach var="usera" items="${allUsers}">
-                                                                <c:if test="${usera.idState == 'Accepted'}">
+                                                            <c:forEach var="user" items="${allUsers}">
+                                                                <c:if test="${user.idState == 'Accepted'}">
                                                                     <tr>
                                                                         <th>${i}</th>
-                                                                        <td>${usera.fullname}</td>
-                                                                        <td>${usera.username}</td>
-                                                                        <td>${usera.email}</td>
-                                                                        <td>${usera.getIdRole()}</td>
-                                                                        <c:if test="${usera.idState == 'Accepted'}">
+                                                                        <td>${user.fullname}</td>
+                                                                        <td>${user.username}</td>
+                                                                        <td>${user.email}</td>
+                                                                        <td>${user.getIdRole()}</td>
+                                                                        <c:if test="${user.idState == 'Accepted'}">
                                                                             <td>
-                                                                                <span class="badge bg-success">${usera.idState}</span>
+                                                                                <span class="badge bg-success">${user.idState}</span>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>
@@ -192,18 +190,18 @@
                                                         </thead>
                                                         <tbody>
                                                             <c:set var="i" value="1" scope="page" />
-                                                            <c:forEach var="userr" items="${allUsers}">
-                                                                <c:if test="${userr.idState == 'Rejected'}">
+                                                            <c:forEach var="user" items="${allUsers}">
+                                                                <c:if test="${user.idState == 'Rejected'}">
                                                                     <tr>
                                                                         <th>${i}</th>
-                                                                        <td>${userr.fullname}</td>
-                                                                        <td>${userr.username}</td>
-                                                                        <td>${userr.email}</td>
-                                                                        <td>${userr.getIdRole()}</td>
+                                                                        <td>${user.fullname}</td>
+                                                                        <td>${user.username}</td>
+                                                                        <td>${user.email}</td>
+                                                                        <td>${user.getIdRole()}</td>
 
-                                                                        <c:if test="${userr.idState == 'Rejected'}">
+                                                                        <c:if test="${user.idState == 'Rejected'}">
                                                                             <td>
-                                                                                <span class="badge bg-danger">${userr.idState}</span>
+                                                                                <span class="badge bg-danger">${user.idState}</span>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>
@@ -229,23 +227,23 @@
                                                         </thead>
                                                         <tbody>
                                                             <c:set var="i" value="1" scope="page" />
-                                                            <c:forEach var="userp" items="${allUsers}">
-                                                                <c:if test="${userp.idState == 'Pending'}">
+                                                            <c:forEach var="user" items="${allUsers}">
+                                                                <c:if test="${user.idState == 'Pending'}">
                                                                     <tr>
                                                                         <th>${i}</th>
-                                                                        <td>${userp.fullname}</td>
-                                                                        <td>${userp.username}</td>
-                                                                        <td>${userp.email}</td>
-                                                                        <td>${userp.getIdRole()}</td>
-                                                                        <c:if test="${userp.idState == 'Pending'}">
+                                                                        <td>${user.fullname}</td>
+                                                                        <td>${user.username}</td>
+                                                                        <td>${user.email}</td>
+                                                                        <td>${user.getIdRole()}</td>
+                                                                        <c:if test="${user.idState == 'Pending'}">
                                                                             <td>
-                                                                                <span class="badge bg-warning">${userp.idState}</span>
+                                                                                <span class="badge bg-warning">${user.idState}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${userp.id}&action=Accepted'">Accept</button>
+                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${user.id}&action=Accepted&loggedUserId=${loggedUser.id}'">Accept</button>
                                                                             </td>
                                                                             <td>
-                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${userp.id}&action=Rejected'">Reject</button>
+                                                                                <button onclick="location.href = '/TheFinalPOS/UpdateUserState?id=${user.id}&action=Rejected&loggedUserId=${loggedUser.id}'">Reject</button>
                                                                             </td>
                                                                         </c:if>
                                                                     </tr>
@@ -261,42 +259,41 @@
                                 </div>
                             </div>
                             <div class="card recent-sales">
+                                <div class="card-body">
                                     <div class="card-body">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Products</h5>
-                                            <div class="tab-content pt-2" id="borderedTabJustifiedContent">
-                                                <div class="tab-pane fade show active" id="bordered-justified-accepted" role="tabpanel" aria-labelledby="accepted-tab">
-                                                    <table class="table table-borderless datatable">
-                                                        <thead>
+                                        <h5 class="card-title">Products</h5>
+                                        <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                                            <div class="tab-pane fade show active" id="bordered-justified-accepted" role="tabpanel" aria-labelledby="accepted-tab">
+                                                <table class="table table-borderless datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th scope="col">Product ID</th>
+                                                            <th scope="col">Product Name</th>
+                                                            <th scope="col">Category</th>
+                                                            <th scope="col">Price</th>
+                                                            <th scope="col">Unit</th>
+                                                            <th scope="col">Image</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:set var="i" value="1" scope="page" />
+                                                        <c:forEach var="product" items="${allProducts}">
                                                             <tr>
-                                                                <th></th>
-                                                                <th scope="col">Product ID</th>
-                                                                <th scope="col">Product Name</th>
-                                                                <th scope="col">Category</th>
-                                                                <th scope="col">Price</th>
-                                                                <th scope="col">Unit</th>
-                                                                <th scope="col">Image</th>
-                                                                <th></th>
-                                                                <th></th>
+                                                                <th>${i}</th>
+                                                                <td>${product.getId()}</td>
+                                                                <td>${product.getProductName()}</td>
+                                                                <td>${product.getIdCategory().getCategory()}</td>
+                                                                <td>${product.getPrice()}</td>
+                                                                <td>${product.getIdUnit().getUnit()}</td>
+                                                                <td>${product.getImgPath()}</td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <c:set var="i" value="1" scope="page" />
-                                                            <c:forEach var="product" items="${allProducts}">
-                                                                    <tr>
-                                                                        <th>${i}</th>
-                                                                        <td>${product.getId()}</td>
-                                                                        <td>${product.getProductName()}</td>
-                                                                        <td>${product.getIdCategory().getCategory()}</td>
-                                                                        <td>${product.getPrice()}</td>
-                                                                        <td>${product.getIdUnit().getUnit()}</td>
-                                                                        <td>${product.getImgPath()}</td>
-                                                                    </tr>
-                                                                    <c:set var="i" value="${i + 1}" scope="page"/>
-                                                            </c:forEach>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                            <c:set var="i" value="${i + 1}" scope="page"/>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -304,6 +301,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
 
         </main>

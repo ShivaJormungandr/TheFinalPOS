@@ -7,6 +7,7 @@ package com.pos.servlet;
 import com.pos.bean.CategoryBean;
 import com.pos.bean.ProductBean;
 import com.pos.bean.UnitBean;
+import com.pos.bean.UserBean;
 import com.pos.entity.Category;
 import com.pos.entity.Product;
 import com.pos.entity.Unit;
@@ -30,6 +31,9 @@ public class AddProduct extends HttpServlet {
     ProductBean productBean;
     
     @Inject
+    UserBean userBean;
+    
+    @Inject
     CategoryBean categoryBean;
     
     @Inject
@@ -39,11 +43,14 @@ public class AddProduct extends HttpServlet {
             throws ServletException, IOException {
         
         String name = request.getParameter("name");
+        int loggedUserId = Integer.parseInt(request.getParameter("loggedUserId"));
+        
         if(name == null || name == ""){
             List<Category> categories = categoryBean.getAllCategories();
             List<Unit> units = unitBean.getAllUnits();
             request.setAttribute("categories", categories);
             request.setAttribute("units", units);
+            request.setAttribute("loggedUser", userBean.getById(loggedUserId));
             request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
         }
         
@@ -53,6 +60,8 @@ public class AddProduct extends HttpServlet {
             List<Unit> units = unitBean.getAllUnits();
             request.setAttribute("categories", categories);
             request.setAttribute("units", units);
+            request.setAttribute("loggedUser", userBean.getById(loggedUserId));
+
             request.setAttribute("err_msg", "Item already in stock");
             request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
             return;
@@ -75,6 +84,8 @@ public class AddProduct extends HttpServlet {
         request.setAttribute("categories", categories);
         request.setAttribute("units", units);
         request.setAttribute("succes_msg", "Item added to the stock!");
+        request.setAttribute("loggedUser", userBean.getById(loggedUserId));
+
         request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
     }
 

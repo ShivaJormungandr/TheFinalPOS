@@ -24,8 +24,11 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        int loggedUserId = Integer.parseInt(request.getParameter("loggedUserId"));
+        
         List<Role> allRoles = roleBean.getAllRoles();
         request.setAttribute("roles", allRoles);
+        request.setAttribute("loggedUser", userBean.getById(loggedUserId));
         request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
     }
 

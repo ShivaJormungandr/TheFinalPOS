@@ -54,10 +54,10 @@
             <nav class="header-nav ms-auto">
                 <ul class="d-flex align-items-center">
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct'"><i class="bi bi-collection"></i> Add Product</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct?loggedUserId=${loggedUser.getId()}'"><i class="bi bi-collection"></i> Add Product</button>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Reports'"><i class="bi bi-collection"></i> Reports</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Reports?loggedUserId=${loggedUser.getId()}'"><i class="bi bi-collection"></i> Reports</button>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -106,7 +106,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout'">
+                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout?loggedUserId=${loggedUser.getId()}'">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Sign Out</span>
                                 </a>

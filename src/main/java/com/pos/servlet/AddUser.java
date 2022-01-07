@@ -46,8 +46,16 @@ public class AddUser extends HttpServlet {
 
         List<Role> roles = roleBean.getAllRoles();
 
-        boolean needsEdit = request.getParameter("action").equals("edit");
-        int loggedAdminId = Integer.parseInt(request.getParameter("loggedId"));
+        boolean needsEdit = false;
+        if (request.getParameter("action") != null) {
+            needsEdit = request.getParameter("action").equals("edit");
+        }
+        System.out.println(request.getParameter("action"));
+        int loggedAdminId = Integer.parseInt(request.getParameter("loggedUserId"));
+        System.out.println("logged id is " + loggedAdminId);
+        UserTable loggedUser = userBean.getById(loggedAdminId);
+        
+        request.setAttribute("loggedUser", loggedUser);
 
         if (needsEdit) {
             int userIdToUpdate = Integer.parseInt(request.getParameter("userId"));
@@ -62,7 +70,6 @@ public class AddUser extends HttpServlet {
                     request.setAttribute("err_msg_user", "User Taken");
                     request.setAttribute("roles", roles);
                     request.setAttribute("user", userToUpdate);
-                    request.setAttribute("loggedId", loggedAdminId);
 
                     request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
                 } catch (Exception ex) {
@@ -75,7 +82,6 @@ public class AddUser extends HttpServlet {
                     request.setAttribute("err_msg_pass", "Passwords do not match");
                     request.setAttribute("roles", roles);
                     request.setAttribute("user", userToUpdate);
-                    request.setAttribute("loggedId", loggedAdminId);
 
                     request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
                 } else {
@@ -121,10 +127,7 @@ public class AddUser extends HttpServlet {
                 Notification.decoratorEvents.notify("New registered user is pending approval...");
             }
 
-            List<UserTable> users = userBean.getAllUsers();
-            request.setAttribute("allUsers", users);
-            request.setAttribute("loggedUser", fullName);
-            request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
+            response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + loggedUser.getId());
         }
     }
 

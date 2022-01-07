@@ -64,6 +64,7 @@
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/AddProduct" method="post">
+                    <input name="loggedUserId" value="${loggedUser.id}" style="visibility: collapse; position: absolute"/>
                     <div class="col-12">
                       <label for="name" class="form-label">Name</label>
                       <input type="text" name="name" class="form-control" id="name" required>
@@ -116,10 +117,6 @@
               </div>
 
               <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
                 Designed by <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Me</a>
               </div>
 

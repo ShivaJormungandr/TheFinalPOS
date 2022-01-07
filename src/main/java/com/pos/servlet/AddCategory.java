@@ -29,7 +29,8 @@ public class AddCategory extends HttpServlet {
             throws ServletException, IOException {
         
         String name = request.getParameter("name");
-        
+        int loggedId = Integer.parseInt(request.getParameter("loggedUserId"));
+
         if (name.trim().isEmpty() || name == null){
             return;
         } 

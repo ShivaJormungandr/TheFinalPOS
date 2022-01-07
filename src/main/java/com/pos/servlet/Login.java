@@ -46,8 +46,6 @@ public class Login extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
         
-//        System.out.println(user);
-//        System.out.println(password);
         if (!user.getPassword().equals(Password.convertToSha256(password))) {
             request.setAttribute("err_msg_pass", "Passwords do not match");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);

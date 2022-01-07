@@ -27,6 +27,7 @@ public class UpdateUserState extends HttpServlet {
         
         Integer userId = Integer.parseInt(request.getParameter("id"));
         String action = request.getParameter("action");
+        int loggedUserId = Integer.parseInt(request.getParameter("loggedUserId"));
       
         UserTable userToUpdate = userBean.getById(userId);
         userBean.updateUser(userToUpdate, null, null, null, null, null, action);
@@ -35,7 +36,7 @@ public class UpdateUserState extends HttpServlet {
             Notification.notificationCount--;
         }
         
-        response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId="+userId);
+        response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId="+loggedUserId);
     }
 
     @Override

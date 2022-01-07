@@ -53,23 +53,23 @@
             <nav class="header-nav ms-auto">
                 <ul class="d-flex align-items-center">
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Register'"><i class="bi bi-collection"></i> Register account</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Register?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Register account</button>
                     </li>
                     <li class="nav-item dropdown pe-3">
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-block dropdown-toggle ps-2">${user.getFullname()}</span>
+                            <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser.getFullname()}</span>
                         </a><!-- End Profile Iamge Icon -->
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                             <li class="dropdown-header">
-                                <h6>${user.getFullname()}</h6>
-                                <span>${user.getIdRole()}</span>
+                                <h6>${loggedUser.getFullname()}</h6>
+                                <span>${loggedUser.getIdRole()}</span>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout'">
+                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout?loggedUserId=${loggedUser.getId()}'">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Sign Out</span>
                                 </a>
@@ -135,42 +135,40 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <c:set var="i" value="1" scope="page" />
-                                                                    <c:forEach var="usera" items="${allUsers}">
-                                                                        <c:if test="${usera.idState == 'Accepted'}">
+                                                                    <c:forEach var="user" items="${allUsers}">
+                                                                        <c:if test="${user.idState == 'Accepted'}">
                                                                             <tr>
-                                                                                <th>${i}</th>
-                                                                                <td>${usera.fullname}</td>
-                                                                                <td>${usera.username}</td>
-                                                                                <td>${usera.email}</td>
-                                                                                <td>${usera.getIdRole()}</td>
-                                                                                <c:if test="${usera.idState == 'Accepted'}">
-                                                                                    <td>
-                                                                                        <span class="badge bg-success">${usera.idState}</span>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredA">❌</button>
-                                                                                        <div class="modal fade" id="verticalycenteredA" tabindex="-1">
-                                                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                                                <div class="modal-content">
-                                                                                                    <div class="modal-header">
-                                                                                                        <h5 class="modal-title">Delete User</h5>
-                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                                    </div>
-                                                                                                    <div class="modal-body">
-                                                                                                        Are you sure you want to delete ${usera.fullname}?
-                                                                                                    </div>
-                                                                                                    <div class="modal-footer">
-                                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${usera.id}'">Delete</button>
-                                                                                                    </div>
+                                                                                <th>${user.id}</th>
+                                                                                <td>${user.fullname}</td>
+                                                                                <td>${user.username}</td>
+                                                                                <td>${user.email}</td>
+                                                                                <td>${user.getIdRole()}</td>
+                                                                                <td>
+                                                                                    <span class="badge bg-success">${user.idState}</span>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredA">❌</button>
+                                                                                    <div class="modal fade" id="verticalycenteredA" tabindex="-1">
+                                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h5 class="modal-title">Delete User</h5>
+                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    Are you sure you want to delete ${user.fullname}?
+                                                                                                </div>
+                                                                                                <div class="modal-footer">
+                                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                                    <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${user.id}&loggedUserId=${loggedUser.getId()}'">Delete</button>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <button type="button" onclick="location.href = '/TheFinalPOS/EditUser?userId=${usera.id}&loggedId=${user.id}'">🖍️️</button>
-                                                                                    </td>
-                                                                                </c:if>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="button" onclick="location.href = '/TheFinalPOS/EditUser?userId=${user.id}&loggedUserId=${loggedUser.getId()}'">🖍️️</button>
+                                                                                </td>
                                                                             </tr>
                                                                             <c:set var="i" value="${i + 1}" scope="page"/>
                                                                         </c:if>
@@ -255,7 +253,7 @@
                                                                                                     </div>
                                                                                                     <div class="modal-footer">
                                                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${user.id}'">Delete</button>
+                                                                                                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${user.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>

@@ -54,7 +54,7 @@
             <nav class="header-nav ms-auto">
                 <ul class="d-flex align-items-center">
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct'"><i class="bi bi-collection"></i> Add Product</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct?loggedUserId=${loggedUser.getId()}'"><i class="bi bi-collection"></i> Add Product</button>
                     </li>
                     <li class="nav-item">
                         <!-- <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/View'"><i class="bi bi-collection"></i> Users</button> -->
@@ -94,31 +94,31 @@
                     <li class="nav-item dropdown pe-3">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser}</span>
+                            <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser.getId()}</span>
                         </a><!-- End Profile Iamge Icon -->
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                             <li class="dropdown-header">
-                                <h6>${loggedUser}</h6>
+                                <h6>${loggedUser.getId()}</h6>
                                 <span>Director</span>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout'">
+                                <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout?loggedUserId=${loggedUser.getId()}'">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Sign Out</span>
                                 </a>
                             </li>
 
-                        </ul><!-- End Profile Dropdown Items -->
-                    </li><!-- End Profile Nav -->
+                        </ul>
+                    </li>
 
                 </ul>
-            </nav><!-- End Icons Navigation -->
+            </nav>
 
-        </header><!-- End Header -->
+        </header>
         <main id="main" class="main">
             <section class="section dashboard">
                 <div class="row">
@@ -152,6 +152,7 @@
                                         <div class="col-md-12">
                                             <input type="hidden" class="form-control" name="report" class="form-control" id="report" value="values">
                                         </div>
+                                        <input type="text" value="${loggedUser.getId()}" name="loggedUserId" style="visibility: collapse; position: absolute" />
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" name="fromValue" placeholder="From" required>
                                         </div>
@@ -161,6 +162,7 @@
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">View</button>
                                         </div>
+                                  
                                     </form>
                                     <!-- End No Labels Form -->
                                 </div>
@@ -171,6 +173,8 @@
                                     <h5 class="card-title">View Transactions Between Dates</h5>
                                     <!-- No Labels Form -->
                                     <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/Reports" method="post">
+                                        <input type="text" value="${loggedUser.getId()}" name="loggedUserId" style="visibility: collapse; position: absolute" />
+
                                         <div class="col-md-12">
                                             <input type="hidden" class="form-control" name="report" class="form-control" id="report" value="dates">
                                         </div>

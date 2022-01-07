@@ -56,8 +56,8 @@
                     <h5 class="card-title text-center pb-0 fs-4">Edit account</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/AddUser?action=edit" method="post">
-                      <input value="${loggedId}" name="loggedId" style="visibility: collapse; position: absolute" />
+                  <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/AddUser?action=edit&loggedUserId=${loggedUser.getId()}" method="post">
+                      <input value="${loggedUser.getId()}" name="loggedUserId" style="visibility: collapse; position: absolute" />
                       <input value="${user.getId()}" name="userId" style="visibility: collapse; position: absolute" />
                       <div class="col-12">
                       <label for="yourName" class="form-label">Name</label>

@@ -26,14 +26,14 @@ public class EditUser extends HttpServlet {
             throws ServletException, IOException {
         
         int userId = Integer.parseInt(request.getParameter("userId"));
-        int loggedId = Integer.parseInt(request.getParameter("loggedId"));
+        int loggedId = Integer.parseInt(request.getParameter("loggedUserId"));
         
         UserTable user = userBean.getById(userId);
          
         List<Role> allRoles = roleBean.getAllRoles();
         request.setAttribute("roles", allRoles);
         request.setAttribute("user", user);
-        request.setAttribute("loggedId", loggedId);
+        request.setAttribute("loggedUser", userBean.getById(loggedId));
         
         request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
     }
