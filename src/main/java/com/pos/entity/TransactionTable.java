@@ -146,7 +146,8 @@ public class TransactionTable implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.entity.TransactionTable[ id=" + id + " ]";
+        return "Transaction{ id=" + id + ", transactionDate=" + transactionDate + ", value=" + value + ", rentalReturnDate=" + rentalReturnDate +
+                ", type=" + idType.getType() + ", cashier=" + idCashier.getFullname() + " }";
     }
     
 }

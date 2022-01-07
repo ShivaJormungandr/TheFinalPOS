@@ -75,7 +75,7 @@
 
                     <div class="col-12">
                       <label for="price" class="form-label">Price</label>
-                      <input type="text" name="email" class="form-control" id="price" required>
+                      <input type="text" name="price" class="form-control" id="price" required>
                       <div class="invalid-feedback">Please enter a valid Price!</div>
                     </div>
 
@@ -107,13 +107,6 @@
                       </select>
                     </div>
 
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Add Product</button>
                     </div>
