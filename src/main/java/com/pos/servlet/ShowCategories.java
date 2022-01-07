@@ -6,6 +6,7 @@ package com.pos.servlet;
 
 import com.pos.bean.CategoryBean;
 import com.pos.entity.Category;
+import com.pos.utility.CartType;
 import com.pos.utility.CurrentCarts;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,8 +32,14 @@ public class ShowCategories extends HttpServlet {
         List<Category> categories =  categoryBean.getAllCategories();
         
         // here will be cart Type set (sale, rental, return), if () after actionType
+        CartType cartType = CartType.valueOf(actionType);
+        System.out.println(cartType);
         
-        CurrentCarts.getInstance().createNewCartForCashier(cashierId);
+        if (CurrentCarts.getInstance().doesCashierHaveCart(cashierId)) {
+            CurrentCarts.getInstance().removeCartForCashier(cashierId);
+        }
+        
+        CurrentCarts.getInstance().createNewCartForCashier(cashierId,cartType);
         
         request.setAttribute("allCategories", categories);
         request.setAttribute("action", actionType);

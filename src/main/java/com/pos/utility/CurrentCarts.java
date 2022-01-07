@@ -31,10 +31,14 @@ public class CurrentCarts {
         return false;
     }
     
-    public void createNewCartForCashier(int cashierId){
-        Cart cart = new Cart(cashierId);
+    public void createNewCartForCashier(int cashierId, CartType cartType){
+        Cart cart = new Cart(cashierId, cartType);
 
         carts.add(cart);
+    }
+    
+    public void removeCartForCashier(int cashierId) {
+        carts.removeIf(x -> x.getCashierId() == cashierId);
     }
     
     public Cart getCartByCashierId(int cashierId) {

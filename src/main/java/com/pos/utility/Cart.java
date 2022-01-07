@@ -13,9 +13,11 @@ public final class Cart{
     CartState empty;
     CartState addingProducts;
     CartState paymentEnded;
-
+    
     CartState currentState;
 
+    CartType cartType;
+    
     private List<Product> productsInCart = null;
 
     private int cashierId;
@@ -24,12 +26,14 @@ public final class Cart{
 
     }
 
-    public Cart(int cashierId) {
+    public Cart(int cashierId, CartType cartType) {
         empty = new EmptyCart(this);
         addingProducts = new AddingProducts(this);
         paymentEnded = new PaymentEnded(this);
 
         currentState = empty;
+        this.cartType = cartType;
+        
         currentState.initializeCart(cashierId);
     }
 
@@ -91,6 +95,10 @@ public final class Cart{
 
     public CartState getPaymentEndedState() {
         return paymentEnded;
+    }
+    
+    public CartType getCartType() {
+        return cartType;
     }
 
     @Override

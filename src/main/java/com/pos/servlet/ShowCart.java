@@ -42,6 +42,11 @@ public class ShowCart extends HttpServlet {
             productsInCart = currentCart.getProductsInCart();
         }
         
+        String todayDateAsString = java.time.LocalDate.now().toString();
+        System.out.println(todayDateAsString);
+        
+        request.setAttribute("today", todayDateAsString);
+        request.setAttribute("cartType", currentCart.getCartType());
         request.setAttribute("productsInCart", productsInCart);
         request.setAttribute("cashierId", cashierId);
         request.setAttribute("moneyTotal", ParseDateTime.roundToTwoDecimals(productsInCart.stream().mapToDouble(x -> x.getPrice()).sum()));

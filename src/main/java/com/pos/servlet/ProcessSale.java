@@ -12,6 +12,7 @@ import com.pos.payment.ProcessCardPayment;
 import com.pos.payment.ProcessCashPayment;
 import com.pos.payment.ProcessPayment;
 import com.pos.utility.Cart;
+import com.pos.utility.CartType;
 import com.pos.utility.CurrentCarts;
 import com.pos.utility.LoggedUsers;
 import com.pos.utility.ParseDateTime;
@@ -44,13 +45,21 @@ public class ProcessSale extends HttpServlet {
 
         int cashierId = Integer.parseInt(request.getParameter("cashierId"));
         String paymentType = request.getParameter("paymentType");
-
+        
+        java.sql.Date rentalReturnDate = null;
+        if (request.getParameter("rentalReturnDate") != null ){
+            rentalReturnDate = java.sql.Date.valueOf(request.getParameter("rentalReturnDate"));
+            System.out.println(rentalReturnDate);
+        }
+        
+        String cartType = request.getParameter("cartType");
+        
         Cart currentCart = CurrentCarts.getInstance().getCartByCashierId(cashierId);
         List<Product> productsInCart = currentCart.getProductsInCart();
         double sum = productsInCart.stream().mapToDouble(p -> p.getPrice()).sum();
 
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-        TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName("Sale"), LoggedUsers.getInstance().getLoggedUserById(cashierId), null);
+        TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName(cartType), LoggedUsers.getInstance().getLoggedUserById(cashierId), rentalReturnDate);
 
         transactionBean.addProductsToTransaction(currentTransaction, productsInCart);
 

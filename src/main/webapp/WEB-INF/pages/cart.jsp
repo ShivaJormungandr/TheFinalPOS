@@ -79,15 +79,21 @@
                                             <input type="radio" name="paymentType" value="card" id="paymentType">
                                             <label for="paymentType">Card</label><br>
                                         </div>
+                                        
+                                        <c:if test="${cartType == 'Rental'}">
+                                            <label>Return date: </label>
+                                            <input type="date" class="form-control" value="${today}" name="rentalReturnDate" required>
+                                        </c:if>
 
                                         <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
+                                        <input type="text" name="cartType" value="${cartType}" style="visibility: collapse;position: absolute" />
 
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Proceed to buy</button>
                                         </div>
                                         
                                         <div class="col-12">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale&cashierId=${cashierId}"><button class="btn btn-primary w-100" type="button">Back</button></a>
+                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=${cartType}&cashierId=${cashierId}"><button class="btn btn-primary w-100" type="button">Back</button></a>
                                         </div>
                                     </form>
                                         
