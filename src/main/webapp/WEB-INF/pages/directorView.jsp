@@ -94,13 +94,13 @@
                     <li class="nav-item dropdown pe-3">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser}</span>
+                            <span class="d-none d-md-block dropdown-toggle ps-2">${user.getFullname()}</span>
                         </a><!-- End Profile Iamge Icon -->
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                             <li class="dropdown-header">
-                                <h6>${loggedUser}</h6>
-                                <span>Director</span>
+                                <h6>${user.getFullname()}</h6>
+                                <span>${user.getIdRole()}</span>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -214,7 +214,6 @@
                                                     </table>
                                                 </div>
                                                 <div class="tab-pane fade" id="bordered-justified-pending" role="tabpanel" aria-labelledby="pending-tab">
-
                                                     <table class="table table-borderless datatable">
                                                         <thead>
                                                             <tr>
@@ -261,9 +260,50 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card recent-sales">
+                                    <div class="card-body">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Products</h5>
+                                            <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                                                <div class="tab-pane fade show active" id="bordered-justified-accepted" role="tabpanel" aria-labelledby="accepted-tab">
+                                                    <table class="table table-borderless datatable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th scope="col">Product ID</th>
+                                                                <th scope="col">Product Name</th>
+                                                                <th scope="col">Category</th>
+                                                                <th scope="col">Price</th>
+                                                                <th scope="col">Unit</th>
+                                                                <th scope="col">Image</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:set var="i" value="1" scope="page" />
+                                                            <c:forEach var="product" items="${allProducts}">
+                                                                    <tr>
+                                                                        <th>${i}</th>
+                                                                        <td>${product.getId()}</td>
+                                                                        <td>${product.getProductName()}</td>
+                                                                        <td>${product.getIdCategory().getCategory()}</td>
+                                                                        <td>${product.getPrice()}</td>
+                                                                        <td>${product.getIdUnit().getUnit()}</td>
+                                                                        <td>${product.getImgPath()}</td>
+                                                                    </tr>
+                                                                    <c:set var="i" value="${i + 1}" scope="page"/>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
             </section>
 
         </main>

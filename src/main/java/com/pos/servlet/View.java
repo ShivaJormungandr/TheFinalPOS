@@ -81,9 +81,14 @@ public class View extends HttpServlet {
             Notification.decoratorEvents.attach(Notification.listener);
 
             List<UserTable> users = userBean.getAllUsers();
+            List<Category> allCategories = categoryBean.getAllCategories();
+            List<Product> allProducts = productBean.getAllProducts();
+
             request.setAttribute("allUsers", users);
             request.setAttribute("notificationCount", Notification.notificationCount);
             request.setAttribute("notificationMessage", Notification.listener);
+            request.setAttribute("allCategories", allCategories);
+            request.setAttribute("allProducts", allProducts);
             
             request.getRequestDispatcher("/WEB-INF/pages/directorView.jsp").forward(request, response);
         } else if (user.getIdRole().equals(roleBean.findByName("Admin"))) {
