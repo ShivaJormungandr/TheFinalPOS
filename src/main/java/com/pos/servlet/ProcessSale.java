@@ -80,7 +80,7 @@ public class ProcessSale extends HttpServlet {
             builder.setId(currentTransaction.getId());
             builder.setTitle("COMPLEX: Multumim ca ati ales saptamana comunista Lidl!");
             builder.setProducts(productsInCart);
-            builder.setTotalAmount(sum);
+            builder.setTotalAmount(ParseDateTime.roundToTwoDecimals(sum));
             builder.setTaxesAmount(ParseDateTime.roundToTwoDecimals(sum* 0.09));
             builder.setDate(date);
             builder.setCashier(transactionBean.findById(currentTransaction.getId()).getIdCashier());

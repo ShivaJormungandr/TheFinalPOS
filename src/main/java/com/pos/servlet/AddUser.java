@@ -108,7 +108,10 @@ public class AddUser extends HttpServlet {
         } catch (Exception ex) {
             userBean.CreateUser(username, password, fullName, role, email);
 
-            Notification.notificationCount++;
+            if(role.equals("Cashier")){
+                Notification.notificationCount++;
+            }
+            
             if (Notification.events != null) {
                 Notification.events.notify("New registered user is pending approval...");
             }

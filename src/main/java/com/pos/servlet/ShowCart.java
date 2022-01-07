@@ -4,6 +4,7 @@ import com.pos.bean.ProductBean;
 import com.pos.entity.Product;
 import com.pos.utility.Cart;
 import com.pos.utility.CurrentCarts;
+import com.pos.utility.ParseDateTime;
 import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;
@@ -43,7 +44,7 @@ public class ShowCart extends HttpServlet {
         
         request.setAttribute("productsInCart", productsInCart);
         request.setAttribute("cashierId", cashierId);
-        request.setAttribute("moneyTotal", productsInCart.stream().mapToDouble(x -> x.getPrice()).sum());
+        request.setAttribute("moneyTotal", ParseDateTime.roundToTwoDecimals(productsInCart.stream().mapToDouble(x -> x.getPrice()).sum()));
         
         request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }
