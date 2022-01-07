@@ -14,6 +14,7 @@ import com.pos.payment.ProcessPayment;
 import com.pos.utility.Cart;
 import com.pos.utility.CurrentCarts;
 import com.pos.utility.LoggedUsers;
+import com.pos.utility.ParseDateTime;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -41,14 +42,12 @@ public class ProcessSale extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //TODO: Fix process sale, this is for example purposes only
         int cashierId = Integer.parseInt(request.getParameter("cashierId"));
+        String paymentType = request.getParameter("paymentType");
 
         Cart currentCart = CurrentCarts.getInstance().getCartByCashierId(cashierId);
         List<Product> productsInCart = currentCart.getProductsInCart();
-        System.out.println(productsInCart);
         double sum = productsInCart.stream().mapToDouble(p -> p.getPrice()).sum();
-        System.out.println(sum);
 
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
         TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName("Sale"), LoggedUsers.getInstance().getLoggedUserById(cashierId), null);
@@ -57,9 +56,9 @@ public class ProcessSale extends HttpServlet {
 
         ProcessPayment payment = null;
 
-        if (request.getParameter("paymentType").equals("cash")) {
+        if (paymentType.equals("cash")) {
             payment = new ProcessCashPayment();
-        } else if (request.getParameter("paymentType").equals("card")) {
+        } else if (paymentType.equals("card")) {
             payment = new ProcessCardPayment();
         }
 
@@ -75,7 +74,6 @@ public class ProcessSale extends HttpServlet {
             builder.setTitle("SIMPLE: Multumim ca ati ales saptamana comunista Lidl!");
             builder.setProducts(productsInCart);
             builder.setTotalAmount(sum);
-            builder.setDate(date);
             builder.setCashier(transactionBean.findById(currentTransaction.getId()).getIdCashier());
         } else {
             builder.setReceiptType(ReceiptType.COMPLEX);
@@ -83,62 +81,21 @@ public class ProcessSale extends HttpServlet {
             builder.setTitle("COMPLEX: Multumim ca ati ales saptamana comunista Lidl!");
             builder.setProducts(productsInCart);
             builder.setTotalAmount(sum);
-            builder.setTaxesAmount(sum * 0.19);
+            builder.setTaxesAmount(ParseDateTime.roundToTwoDecimals(sum* 0.09));
             builder.setDate(date);
             builder.setCashier(transactionBean.findById(currentTransaction.getId()).getIdCashier());
         }
 
         Receipt receipt = builder.getResult();
-
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddUser</title>");
-            out.println("</head>");
-            out.println("<body>");
-
-            if (payment != null) {
-                out.println("<br>");
-                out.println("<p>" + payment.getpaymentResponse() + "</p>");
-                out.println("<br>");
-            }
-
-            out.println("<table>");
-            if (receipt == null) {
-                out.println("<h1> No receipt generated! </h1>");
-            } else {
-                out.println("<tr>Receipt Type: " + receipt.getReceiptType() + "<br></tr>");
-                out.println("<tr>ID: " + receipt.getId() + "<br></tr>");
-                out.println("<tr>Title: " + receipt.getTitle() + "<br></tr>");
-
-                out.println("<tr><br>");
-
-                out.println("<table>");
-                out.println("<tr> <th>NAME</th> <th>PRICE</th> </tr>");
-                if (productsInCart.isEmpty()) {
-                    out.println("<h1> No products found!</h1>");
-                } else {
-                    for (Product p : productsInCart) {
-                        out.println("<tr>" + "<td>" + p.getProductName() + "</td>" + "<td>" + p.getPrice() + "</td>" + "</tr>");
-                    }
-                }
-                out.println("</table>");
-
-                out.println("</tr>");
-                out.println("<br><tr>TOTAL: " + receipt.getTotalAmount() + " RON</tr>");
-                out.println("<br><tr>Taxes: " + receipt.getTaxesAmount() + " RON</tr>");
-                out.println("<br><tr>Date: " + receipt.getDate() + "</tr>");
-                out.println("<br><tr>Cashier username: " + receipt.getCashier().getUsername() + "</tr>");
-            }
-            out.println("</table>");
-            out.println("<button onclick='location.href=\"/TheFinalPOS/View?userId=" + cashierId + "\"'>New sale</button>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-
+        
         currentCart.proceedPayment();
+
+        request.setAttribute("receipt", receipt);
+        request.setAttribute("paymentType", paymentType);
+        request.setAttribute("simple", ReceiptType.SIMPLE);
+        request.setAttribute("complex", ReceiptType.COMPLEX);
+        
+        request.getRequestDispatcher("/WEB-INF/pages/receipt.jsp").forward(request, response);        
     }
 
     @Override

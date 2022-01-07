@@ -4,6 +4,8 @@
  */
 package com.pos.utility;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -43,5 +45,9 @@ public class ParseDateTime {
             // look the origin of excption 
         }
         return null;
+    }
+    
+    public static Double roundToTwoDecimals(Double val) {
+        return new BigDecimal(val.toString()).setScale(2,RoundingMode.HALF_UP).doubleValue();
     }
 }

@@ -23,8 +23,6 @@ public class ShowCart extends HttpServlet {
             throws ServletException, IOException {
         
         List<Product> productsInCart = null;
-//        System.out.println(request.getParameter("quantity"));
-//        System.out.println(request.getParameter("cashierId"));
         int cashierId = Integer.parseInt(request.getParameter("cashierId"));
         Cart currentCart = CurrentCarts.getInstance().getCartByCashierId(cashierId);
 
@@ -32,13 +30,8 @@ public class ShowCart extends HttpServlet {
              
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             int productId = Integer.parseInt(request.getParameter("productId"));
-            
-//            System.out.println(quantity);
-//            System.out.println(productId);
 
             Product productToAdd = productBean.findById(productId);
-
-//            System.out.println(currentCart);
             currentCart.enterItems(productToAdd, quantity);
             
             productsInCart = currentCart.getProductsInCart();
@@ -50,6 +43,7 @@ public class ShowCart extends HttpServlet {
         
         request.setAttribute("productsInCart", productsInCart);
         request.setAttribute("cashierId", cashierId);
+        request.setAttribute("moneyTotal", productsInCart.stream().mapToDouble(x -> x.getPrice()).sum());
         
         request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }

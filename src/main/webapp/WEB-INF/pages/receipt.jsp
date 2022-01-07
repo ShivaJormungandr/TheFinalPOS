@@ -31,22 +31,40 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                                 <div class="d-flex justify-content-center py-4">
-                                    <h1><span class="d-none d-lg-block">Cart</span></h1>
+                                    <h1><span class="d-none d-lg-block">${receipt.getTitle()}</span></h1>
                                 </div>
 
-                                <c:if test="${productsInCart == null}">
+                                <c:if test="${receipt.getId() != null}">
+                                    <h3><span class="d-none d-lg-block">ID: ${receipt.getId()}</span></h3>
+                                </c:if>
+
+                                <c:if test="${receipt.getDate() != null}">
+                                    <h3><span class="d-none d-lg-block">Date: ${receipt.getDate()}</span></h3>
+                                </c:if>
+                                
+                                <c:if test="${receipt.getReceiptType() == complex}">
+                                    <c:if test="${receipt.getCashier() != null}">
+                                        <h3><span class="d-none d-lg-block">Cashier: ${receipt.getCashier().getUsername()}</span></h3>
+                                    </c:if>
+                                </c:if>
+
+                                <c:if test="${paymentType != null}">
+                                    <h3><span class="d-none d-lg-block">Payment type: ${paymentType}</span></h3>
+                                </c:if>
+
+                                <c:if test="${receipt.getProducts() == null}">
                                     <div class="alert alert-warning" role="alert">
                                         The cart is empty!
                                     </div>
                                 </c:if>
-                                <c:if test="${productsInCart != null}">
+                                <c:if test="${receipt.getProducts() != null}">
                                     <table class="table">
                                         <tr>
                                             <th scope="col"></th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Price</th>
                                         </tr>
-                                        <c:forEach var="product" items="${productsInCart}">
+                                        <c:forEach var="product" items="${receipt.getProducts()}">
                                             <tr>
                                                 <td>${product.imgPath}</td>
                                                 <td>${product.productName}</td>
@@ -57,40 +75,22 @@
                                         <tr>
                                             <td></td>
                                             <td>TOTAL</td>
-                                            <td>${moneyTotal}</td>
+                                            <td>${receipt.getTotalAmount()}</td>
                                         </tr>
+
+                                        <c:if test="${receipt.getTaxesAmount() != null}">
+                                            <td></td>
+                                            <td>TAXES</td>
+                                            <td>${receipt.getTaxesAmount()}</td>
+                                        </c:if>
                                     </table>
 
-                                    <br> <br>
-
-                                    <form action="/TheFinalPOS/ProcessSale" method="post" class="row g-3">
+                                    <form method="post" action="/TheFinalPOS/View">
+                                        <input type="text" name="userId" value="${receipt.getCashier().getId()}" style="visibility: collapse;position: absolute" />
                                         <div class="col-12">
-                                            <p>Please select your receipt type: </p>
-                                            <input type="radio" name="receiptType" value="simple" id="receiptType" checked>
-                                            <label for="receiptType">Simple</label><br>
-                                            <input type="radio" name="receiptType" value="complex" id="receiptType">
-                                            <label for="receiptType">Complex</label><br>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <p>Please select the payment type: </p>
-                                            <input type="radio" name="paymentType" value="cash" id="paymentType" checked>
-                                            <label for="paymentType">Cash</label><br>
-                                            <input type="radio" name="paymentType" value="card" id="paymentType">
-                                            <label for="paymentType">Card</label><br>
-                                        </div>
-
-                                        <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
-
-                                        <div class="col-12">
-                                            <button class="btn btn-primary w-100" type="submit">Proceed to buy</button>
-                                        </div>
-                                        
-                                        <div class="col-12">
-                                            <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale&cashierId=${cashierId}"><button class="btn btn-primary w-100" type="button">Back</button></a>
+                                            <button class="btn btn-primary w-100" type="submit">Back</button>
                                         </div>
                                     </form>
-                                        
                                 </c:if>
                             </div>
                         </div>
