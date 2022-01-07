@@ -57,7 +57,7 @@
                         <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct'"><i class="bi bi-collection"></i> Add Product</button>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/View'"><i class="bi bi-collection"></i> Users</button>
+                        <!-- <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/View'"><i class="bi bi-collection"></i> Users</button> -->
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
