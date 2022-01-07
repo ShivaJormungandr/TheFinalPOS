@@ -66,7 +66,6 @@ public class View extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("loggedUser", user);
-        
 
         if (user.getIdRole().equals(roleBean.findByName("Cashier"))) {
             List<TransactionType> types = transactionTypeBean.getAllCategories();

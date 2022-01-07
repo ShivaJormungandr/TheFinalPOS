@@ -41,19 +41,19 @@
                   <ul class="d-flex align-items-center" style="list-style-type: none;">
                     <li class="nav-item dropdown pe-3">
                       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">${user.getFullname()}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser.getFullname()}</span>
                       </a><!-- End Profile Iamge Icon -->
 
                       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                          <h6>${user.getFullname()}</h6>
-                          <span>${user.getIdRole()}</span>
+                          <h6>${loggedUser.getFullname()}</h6>
+                          <span>${loggedUser.getIdRole()}</span>
                         </li>
                         <li>
                           <hr class="dropdown-divider">
                         </li>
                         <li>
-                          <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout'">
+                          <a class="dropdown-item d-flex align-items-center" onclick="location.href = '/TheFinalPOS/Logout?loggedUserId=${loggedUser.id}'">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                           </a>
@@ -65,12 +65,12 @@
                   </ul>
                 </nav><!-- End Icons Navigation -->
         </header>
-        <c:if test="${user.getIdRole() != 'Cashier'}">
+        <c:if test="${loggedUser.getIdRole() != 'Cashier'}">
             <div class="alert alert-warning" role="alert">
                 nu esti cashier
             </div>
         </c:if>
-        <c:if test="${user.getIdRole() == 'Cashier'}">
+        <c:if test="${loggedUser.getIdRole() == 'Cashier'}">
             <main id="main">
                 <section id="team" class="team section-bg">
                     <div class="container" data-aos="fade-up">
@@ -85,7 +85,7 @@
                                     <div class="member">
                                         <c:if test="${type == 'Sale'}" >
                                             <div class="member-img">
-                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale&cashierId=${user.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Sale&cashierId=${loggedUser.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                             </div>
                                             <div class="member-info">
                                                 <h1>${type}</h1>
@@ -93,7 +93,7 @@
                                         </c:if>
                                         <c:if test="${type == 'Rental'}" >
                                             <div class="member-img">
-                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Rental&cashierId=${user.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Rental&cashierId=${loggedUser.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                             </div>
                                             <div class="member-info">
                                                 <h1>${type}</h1>
@@ -101,7 +101,7 @@
                                         </c:if>
                                         <c:if test="${type == 'Return'}" >
                                             <div class="member-img">
-                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Return&cashierId=${user.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
+                                                <a href="http://localhost:8080/TheFinalPOS/ShowCategories?action=Return&cashierId=${loggedUser.getId()}"><img src="${pageContext.request.contextPath}/assetsLP/img/${type}.jpg" height="300px" width="350px" alt=""></a>
                                             </div>
                                             <div class="member-info">
                                                 <h1>${type}</h1>
