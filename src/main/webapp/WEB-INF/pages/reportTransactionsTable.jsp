@@ -57,7 +57,7 @@
                         <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct'"><i class="bi bi-collection"></i> Add Product</button>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/View'"><i class="bi bi-collection"></i> Users</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Reports'"><i class="bi bi-collection"></i> Reports</button>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -126,68 +126,45 @@
                     <div class="col-lg-8">
                         <div class="row">
                             <!-- Recent Sales -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <!-- View All Transactions -->
-                                    <form class="row g-3" novalidate action="/TheFinalPOS/Reports" method="post">
-                                        <h5 class="card-title">View All Transactions</h5>
-                                        <div class="col-12" >
-                                            <input type="hidden" name="report" class="form-control" id="report" value="all">
-                                        </div>
-                                        <div class="row mb-3" >
-                                            <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-primary">View</button>
+                            <div class="col-14">
+                                <div class="card recent-sales">
+                                    <div class="card-body">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Reports</h5>
+                                            <div class="tab-pane fade show active" id="bordered-justified-accepted">
+                                                <table class="table table-borderless datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th scope="col">Id</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Value</th>
+                                                            <th scope="col">Type</th>
+                                                            <th scope="col">Cashier</th>
+                                                            <th scope="col">Return Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:set var="i" value="1" scope="page" />
+                                                        <c:forEach var="tran" items="${allTransactions}">
+                                                            <tr>
+                                                                <th>${i}</th>
+                                                                <td>${tran.id}</td>
+                                                                <td>${tran.transactionDate}</td>
+                                                                <td>${tran.value}</td>
+                                                                <td>${tran.idType}</td>
+                                                                <td>${tran.idCashier.getFullname()}</td>
+                                                                <td>${tran.rentalReturnDate}</td>
+                                                            </tr>
+                                                            <c:set var="i" value="${i + 1}" scope="page"/>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                    </form>
-                                    <!-- View All Transactions -->
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">View Transactions Between Values</h5>
-                                    <!-- No Labels Form -->
-                                    <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/Reports" method="post">
-                                        <div class="col-md-12">
-                                            <input type="hidden" class="form-control" name="report" class="form-control" id="report" value="values">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" name="fromValue" placeholder="From" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" name="toValue" placeholder="To" required>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary">View</button>
-                                        </div>
-                                    </form>
-                                    <!-- End No Labels Form -->
-                                </div>
-                            </div>
-                            
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">View Transactions Between Dates</h5>
-                                    <!-- No Labels Form -->
-                                    <form class="row g-3 needs-validation" novalidate action="/TheFinalPOS/Reports" method="post">
-                                        <div class="col-md-12">
-                                            <input type="hidden" class="form-control" name="report" class="form-control" id="report" value="dates">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="date" class="form-control" name="fromDate" placeholder="From" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="date" class="form-control" name="toDate" placeholder="To" required>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary">View</button>
-                                        </div>
-                                    </form>
-                                    <!-- End No Labels Form -->
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
