@@ -53,10 +53,15 @@
             </div><!-- End Logo -->
             <nav class="header-nav ms-auto">
                 <ul class="d-flex align-items-center">
-                    <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Add Product</button>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Add Product</button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddCategory?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Add Category</button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Reports?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Reports</button>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
@@ -289,8 +294,87 @@
                                                                 <td>${product.getPrice()}</td>
                                                                 <td>${product.getIdUnit().getUnit()}</td>
                                                                 <td>${product.getImgPath()}</td>
+                                                                <td>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredP">❌</button>
+                                                                    <div class="modal fade" id="verticalycenteredP" tabindex="-1">
+                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Delete Product</h5>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    Are you sure you want to delete ${product.getProductName()}?
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteProduct?id=${product.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" onclick="location.href = '/TheFinalPOS/EditProduct?productId=${product.getId()}&loggedUserId=${loggedUser.id}'">🖍️️</button>
+                                                                </td>
                                                             </tr>
                                                             <c:set var="i" value="${i + 1}" scope="page"/>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card recent-sales">
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Categories</h5>
+                                        <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                                            <div class="tab-pane fade show active" id="bordered-justified-accepted" role="tabpanel" aria-labelledby="accepted-tab">
+                                                <table class="table table-borderless datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th scope="col">Category ID</th>
+                                                            <th scope="col">Category Name</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:set var="categoryCount" value="1" scope="page" />
+                                                        <c:forEach var="category" items="${allCategories}">
+                                                            <tr>
+                                                                <th>${categoryCount}</th>
+                                                                <td>${category.getId()}</td>
+                                                                <td>${category.getCategory()}</td>
+                                                                <td>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredC">❌</button>
+                                                                    <div class="modal fade" id="verticalycenteredC" tabindex="-1">
+                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Delete Category</h5>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    Are you sure you want to delete ${category.getCategory()}?
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteCategory?id=${category.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" onclick="location.href = '/TheFinalPOS/EditCategory?categoryId=${category.getId()}&loggedUserId=${loggedUser.id}'">🖍️️</button>
+                                                                </td>
+                                                            </tr>
+                                                            <c:set var="categoryCount" value="${categoryCount + 1}" scope="page"/>
                                                         </c:forEach>
                                                     </tbody>
                                                 </table>
@@ -324,44 +408,44 @@
         <script src="assets/vendor/php-email-form/validate.js"></script>
 
         <script>
-                                                                                    document.addEventListener("DOMContentLoaded", () => {
-                                                                                        new Chart(document.querySelector('#barChart'), {
-                                                                                            type: 'bar',
-                                                                                            data: {
-                                                                                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                                                                                                datasets: [{
-                                                                                                        label: 'Bar Chart',
-                                                                                                        data: [65, 59, 80, 81, 56, 55, 40],
-                                                                                                        backgroundColor: [
-                                                                                                            'rgba(255, 99, 132, 0.2)',
-                                                                                                            'rgba(255, 159, 64, 0.2)',
-                                                                                                            'rgba(255, 205, 86, 0.2)',
-                                                                                                            'rgba(75, 192, 192, 0.2)',
-                                                                                                            'rgba(54, 162, 235, 0.2)',
-                                                                                                            'rgba(153, 102, 255, 0.2)',
-                                                                                                            'rgba(201, 203, 207, 0.2)'
-                                                                                                        ],
-                                                                                                        borderColor: [
-                                                                                                            'rgb(255, 99, 132)',
-                                                                                                            'rgb(255, 159, 64)',
-                                                                                                            'rgb(255, 205, 86)',
-                                                                                                            'rgb(75, 192, 192)',
-                                                                                                            'rgb(54, 162, 235)',
-                                                                                                            'rgb(153, 102, 255)',
-                                                                                                            'rgb(201, 203, 207)'
-                                                                                                        ],
-                                                                                                        borderWidth: 1
-                                                                                                    }]
-                                                                                            },
-                                                                                            options: {
-                                                                                                scales: {
-                                                                                                    y: {
-                                                                                                        beginAtZero: true
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        });
-                                                                                    });
+                                                                        document.addEventListener("DOMContentLoaded", () => {
+                                                                            new Chart(document.querySelector('#barChart'), {
+                                                                                type: 'bar',
+                                                                                data: {
+                                                                                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                                                                    datasets: [{
+                                                                                            label: 'Bar Chart',
+                                                                                            data: [65, 59, 80, 81, 56, 55, 40],
+                                                                                            backgroundColor: [
+                                                                                                'rgba(255, 99, 132, 0.2)',
+                                                                                                'rgba(255, 159, 64, 0.2)',
+                                                                                                'rgba(255, 205, 86, 0.2)',
+                                                                                                'rgba(75, 192, 192, 0.2)',
+                                                                                                'rgba(54, 162, 235, 0.2)',
+                                                                                                'rgba(153, 102, 255, 0.2)',
+                                                                                                'rgba(201, 203, 207, 0.2)'
+                                                                                            ],
+                                                                                            borderColor: [
+                                                                                                'rgb(255, 99, 132)',
+                                                                                                'rgb(255, 159, 64)',
+                                                                                                'rgb(255, 205, 86)',
+                                                                                                'rgb(75, 192, 192)',
+                                                                                                'rgb(54, 162, 235)',
+                                                                                                'rgb(153, 102, 255)',
+                                                                                                'rgb(201, 203, 207)'
+                                                                                            ],
+                                                                                            borderWidth: 1
+                                                                                        }]
+                                                                                },
+                                                                                options: {
+                                                                                    scales: {
+                                                                                        y: {
+                                                                                            beginAtZero: true
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        });
         </script>
         <script src="assets/js/main.js"></script>
     </body>

@@ -5,7 +5,10 @@
 package com.pos.servlet;
 
 import com.pos.bean.CategoryBean;
+import com.pos.bean.ProductBean;
+import com.pos.bean.UserBean;
 import com.pos.entity.Category;
+import com.pos.entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -22,45 +25,65 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AddCategory", urlPatterns = {"/AddCategory"})
 public class AddCategory extends HttpServlet {
+
     @Inject
     CategoryBean categoryBean;
-    
+
+    @Inject
+    UserBean userBean;
+
+    @Inject
+    ProductBean productBean;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String name = request.getParameter("name");
         int loggedId = Integer.parseInt(request.getParameter("loggedUserId"));
 
-        if (name.trim().isEmpty() || name == null){
-            return;
-        } 
-        
-        categoryBean.createCategory(name);
-        
-        List<Category> allCategories = categoryBean.getAllCategories();
+        boolean needsEdit = false;
 
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddUser</title>");
-            out.println("</head>");
-            out.println("<body>");           
-            
-            out.println("<table>");
-            out.println("<tr> <th>ID</th> <th>NAME</th>  </tr>");
-            if (allCategories.isEmpty()) {
-                out.println("<h1> No categories found </h1>");
-            } else {
-                for (Category category : allCategories) {
-                    out.println("<tr>" + "<td>" + category.getId() + "</td>" + "<td>" + category.getCategory() + "</td> </tr>");
+        if (request.getParameter("action") != null) {
+            needsEdit = true;
+        }
+
+        if (needsEdit) {
+            int categoryIdToUpdate = Integer.parseInt(request.getParameter("categoryId"));
+
+            Category categoryToUpdate = categoryBean.findById(categoryIdToUpdate);
+
+            for (Category category : categoryBean.getAllCategories()) {
+                if (category.getCategory().equals(name)) {
+                    response.sendRedirect("http://localhost:8080/TheFinalPOS/EditCategory?categoryId=" + categoryIdToUpdate + "&loggedUserId=" + loggedId);
+                    return;
                 }
             }
-            out.println("</table>");
-           
-            out.println("</body>");
-            out.println("</html>");
+
+            List<Product> products = productBean.getAllProductsByCategory(categoryToUpdate);
+            if (products.isEmpty()) {
+                categoryBean.updateCategory(categoryToUpdate, name);
+                response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + loggedId);
+            } else {
+                response.sendRedirect("http://localhost:8080/TheFinalPOS/EditCategory?categoryId=" + categoryIdToUpdate + "&loggedUserId=" + loggedId);
+
+            }
+
+            return;
+        }
+
+        if (name == null || name.trim().isEmpty()) {
+            request.setAttribute("loggedUser", userBean.getById(loggedId));
+            request.getRequestDispatcher("/WEB-INF/pages/addCategory.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            categoryBean.findByName(name);
+            request.setAttribute("err_msg", "Category already exists!");
+            request.getRequestDispatcher("/WEB-INF/pages/addCategory.jsp").forward(request, response);
+        } catch (Exception ex) {
+            categoryBean.createCategory(name);
+            response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + loggedId);
         }
     }
 

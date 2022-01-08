@@ -55,6 +55,12 @@
                     <li class="nav-item">
                         <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/Register?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Register account</button>
                     </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddProduct?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Add Product</button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/AddCategory?loggedUserId=${loggedUser.id}'"><i class="bi bi-collection"></i> Add Category</button>
+                    </li>
                     <li class="nav-item dropdown pe-3">
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                             <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser.getFullname()}</span>
@@ -278,6 +284,8 @@
                                                                     <th scope="col">Image</th>
                                                                     <th scope="col">Name</th>
                                                                     <th scope="col">Price</th>
+                                                                    <th></th>
+                                                                    <th></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -288,6 +296,29 @@
                                                                         <td>${product.imgPath}</td>
                                                                         <td>${product.productName}</td>
                                                                         <td>${product.price}</td>
+                                                                        <td>
+                                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredP">❌</button>
+                                                                            <div class="modal fade" id="verticalycenteredP" tabindex="-1">
+                                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title">Delete Product</h5>
+                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            Are you sure you want to delete ${product.getProductName()}?
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                            <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteProduct?id=${product.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <button type="button" onclick="location.href = '/TheFinalPOS/EditProduct?productId=${product.getId()}&loggedUserId=${loggedUser.id}'">🖍️️</button>
+                                                                        </td>
                                                                     </tr>
                                                                     <c:set var="i" value="${i + 1}" scope="page"/>
                                                                 </c:forEach>
@@ -302,6 +333,8 @@
                                                                 <tr>
                                                                     <th scope="col">#</th>
                                                                     <th scope="col">Name</th>
+                                                                    <th></th>
+                                                                    <th></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -310,6 +343,29 @@
                                                                     <tr>
                                                                         <th scope="row">${i}</th>
                                                                         <td>${category.category}</td>
+                                                                        <td>
+                                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredC">❌</button>
+                                                                            <div class="modal fade" id="verticalycenteredC" tabindex="-1">
+                                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title">Delete Category</h5>
+                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            Are you sure you want to delete ${category.getCategory()}?
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                            <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteCategory?id=${category.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <button type="button" onclick="location.href = '/TheFinalPOS/EditCategory?categoryId=${category.getId()}&loggedUserId=${loggedUser.id}'">🖍️️</button>
+                                                                        </td>
                                                                     </tr>
                                                                     <c:set var="i" value="${i + 1}" scope="page"/>
                                                                 </c:forEach>

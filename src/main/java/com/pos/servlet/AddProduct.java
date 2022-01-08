@@ -27,25 +27,47 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AddProduct", urlPatterns = {"/AddProduct"})
 public class AddProduct extends HttpServlet {
+
     @Inject
     ProductBean productBean;
-    
+
     @Inject
     UserBean userBean;
-    
+
     @Inject
     CategoryBean categoryBean;
-    
+
     @Inject
     UnitBean unitBean;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String name = request.getParameter("name");
+        String category = request.getParameter("category");
+
+        double price = Double.parseDouble(request.getParameter("price") == null ? "0" : request.getParameter("price"));
+        String unit = request.getParameter("unit");
+        String imgPath = request.getParameter("imgPath");
+
         int loggedUserId = Integer.parseInt(request.getParameter("loggedUserId"));
-        
-        if(name == null || name == ""){
+
+        boolean needsEdit = false;
+
+        if (request.getParameter("action") != null) {
+            needsEdit = true;
+        }
+
+        if (needsEdit) {
+            int productIdToUpdate = Integer.parseInt(request.getParameter("productId"));
+
+            Product productToUpdate = productBean.findById(productIdToUpdate);
+
+            productBean.updateProduct(productToUpdate, name, categoryBean.findByName(category), price, unitBean.findByName(unit), imgPath);
+            response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + loggedUserId);
+            return;
+        }
+        if (name == null || name == "") {
             List<Category> categories = categoryBean.getAllCategories();
             List<Unit> units = unitBean.getAllUnits();
             request.setAttribute("categories", categories);
@@ -53,8 +75,8 @@ public class AddProduct extends HttpServlet {
             request.setAttribute("loggedUser", userBean.getById(loggedUserId));
             request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
         }
-        
-        try{
+
+        try {
             productBean.findByName(name);
             List<Category> categories = categoryBean.getAllCategories();
             List<Unit> units = unitBean.getAllUnits();
@@ -65,20 +87,14 @@ public class AddProduct extends HttpServlet {
             request.setAttribute("err_msg", "Item already in stock");
             request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
             return;
-        }catch(Exception ex){
+        } catch (Exception ex) {
         }
-        
-        String category = request.getParameter("category");
-        
-        double price = Double.parseDouble(request.getParameter("price") == null ? "0" : request.getParameter("price"));
-        String unit = request.getParameter("unit");
-        String imgPath = request.getParameter("imgPath");
 
         productBean.createProduct(name, categoryBean.findByName(category), price, unitBean.findByName(unit), imgPath);
-        
+
         Product prod = productBean.findByName(name);
         prod.setImgPath(imgPath);
-        
+
         List<Category> categories = categoryBean.getAllCategories();
         List<Unit> units = unitBean.getAllUnits();
         request.setAttribute("categories", categories);
