@@ -27,6 +27,9 @@ public class ShowStore extends HttpServlet {
         
         String categoryToFilterString = request.getParameter("category");
         
+        List<Category> allCategories = categoryBean.getAllCategories();
+        request.setAttribute("allCategories", allCategories);
+        
         if (categoryToFilterString != null){
            Category categoryToFilter = categoryBean.findByName(categoryToFilterString);
            List<Product> productsByCategory = productBean.getAllProductsByCategory(categoryToFilter);

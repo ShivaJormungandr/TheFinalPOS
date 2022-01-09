@@ -70,11 +70,9 @@
                                             <h6>Filter</h6>
                                         </li>
                                         <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore"">All</a></li>
-                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Food">Food</a></li>
-                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Toy">Toy</a></li>
-                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Tool">Tool</a></li>
-                                        <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=Alcohol">Alcohol</a></li>
-                                       
+                                        <c:forEach items="${allCategories}" var="category">
+                                            <li><a class="dropdown-item" href="http://localhost:8080/TheFinalPOS/ShowStore?category=${category}">${category}</a></li>
+                                        </c:forEach>
                                     </ul>
                                 </div>
                                 <table class="table datatable">
