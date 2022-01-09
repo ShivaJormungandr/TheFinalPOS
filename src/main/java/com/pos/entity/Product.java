@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.pos.entity;
 
 import java.io.Serializable;
@@ -21,10 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Tavi
- */
 @Entity
 @Table(catalog = "", schema = "DBA")
 @NamedQueries({
@@ -44,7 +36,6 @@ public class Product implements Serializable {
     @Size(max = 30)
     @Column(name = "PRODUCT_NAME", length = 30)
     private String productName;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(precision = 52)
     private Double price;
     @Size(max = 255)
@@ -131,7 +122,6 @@ public class Product implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Product)) {
             return false;
         }

@@ -15,11 +15,11 @@ import javax.persistence.TypedQuery;
 public class ProductBean {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public List<Product> getAllProducts() {
         try {
-            TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class);
+            TypedQuery<Product> query = entityManager.createNamedQuery("Product.findAll", Product.class);
             List<Product> result = query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -29,7 +29,7 @@ public class ProductBean {
 
     public List<Product> getAllProductsByCategory(Category category) {
         try {
-            Query query = em.createQuery("SELECT p FROM Product p WHERE p.idCategory = :categoryId")
+            Query query = entityManager.createQuery("SELECT p FROM Product p WHERE p.idCategory = :categoryId")
             .setParameter("categoryId", category);
             List<Product> result = query.getResultList();
             return result;
@@ -39,12 +39,12 @@ public class ProductBean {
     }
     
     public Product findById(Integer productId) {
-        Product product = em.find(Product.class, productId);
+        Product product = entityManager.find(Product.class, productId);
         return product;
     }
 
     public Product findByName(String productName) {
-        TypedQuery<Product> query = em.createNamedQuery("Product.findByProductName", Product.class);
+        TypedQuery<Product> query = entityManager.createNamedQuery("Product.findByProductName", Product.class);
         query.setParameter("productName", productName);
         Product result = query.getSingleResult();
 
@@ -61,12 +61,12 @@ public class ProductBean {
         product.setIdUnit(unit);
         product.setImgPath(imgPath);
 
-        em.persist(product);
+        entityManager.persist(product);
     }
 
     public void updateProduct(Product product, String newProductName, Category newCategory, Double newPrice, Unit newUnit, String newImgPath) {
-        if (!em.contains(product)) {
-            product = em.merge(product);
+        if (!entityManager.contains(product)) {
+            product = entityManager.merge(product);
         }
         if (newProductName != null) {
             product.setProductName(newProductName);
@@ -86,9 +86,9 @@ public class ProductBean {
     }
 
     public void deleteProduct(Product product) {
-        if (!em.contains(product)) {
-            product = em.merge(product);
+        if (!entityManager.contains(product)) {
+            product = entityManager.merge(product);
         }
-        em.remove(product);
+        entityManager.remove(product);
     }
 }

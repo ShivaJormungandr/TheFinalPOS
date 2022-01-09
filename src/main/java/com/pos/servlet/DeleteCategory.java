@@ -5,7 +5,6 @@ import com.pos.bean.ProductBean;
 import com.pos.entity.Category;
 import com.pos.entity.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

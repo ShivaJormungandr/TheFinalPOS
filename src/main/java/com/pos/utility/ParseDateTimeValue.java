@@ -1,26 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.pos.utility;
 
+import com.pos.entity.Product;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
-import static javax.json.bind.JsonbConfig.DATE_FORMAT;
 
-/**
- *
- * @author petel
- */
-public class ParseDateTime {
+public class ParseDateTimeValue {
 
     public static java.sql.Timestamp parseTimestamp(String timestamp) {
-        //timestamp += " 00:00:00";
         Timestamp t = Timestamp.valueOf(timestamp);
 
         return t;
@@ -41,13 +32,21 @@ public class ParseDateTime {
             java.util.Date dateJava = formatter.parse(dateString);
             Timestamp timestamp = new java.sql.Timestamp(dateJava.getTime());
             return timestamp.toString();
-        } catch (Exception e) { //this generic but you can control another types of exception
-            // look the origin of excption 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
     
-    public static Double roundToTwoDecimals(Double val) {
-        return new BigDecimal(val.toString()).setScale(2,RoundingMode.HALF_UP).doubleValue();
+    public static Double roundToTwoDecimals(Double value) {
+        return new BigDecimal(value.toString()).setScale(2,RoundingMode.HALF_UP).doubleValue();
+    }
+    
+    public static Double computeTotalSumOfCart(List<Product> productsInCart){
+        return roundToTwoDecimals(productsInCart.stream().mapToDouble(p -> p.getPrice()).sum());
+    }
+    
+    public static Double computeTaxes(Double value, Double taxPercentage){
+        return roundToTwoDecimals(value * taxPercentage);
     }
 }

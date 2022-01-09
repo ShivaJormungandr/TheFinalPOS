@@ -12,11 +12,11 @@ import javax.persistence.TypedQuery;
 public class CategoryBean {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public List<Category> getAllCategories() {
         try {
-            TypedQuery<Category> query = em.createNamedQuery("Category.findAll", Category.class);
+            TypedQuery<Category> query = entityManager.createNamedQuery("Category.findAll", Category.class);
             List<Category> result = (List<Category>) query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -25,11 +25,11 @@ public class CategoryBean {
     }
 
     public Category findById(Integer categoryId) {
-        return em.find(Category.class, categoryId);
+        return entityManager.find(Category.class, categoryId);
     }
 
     public Category findByName(String categoryName) {
-        TypedQuery<Category> query = em.createNamedQuery("Category.findByCategory", Category.class);
+        TypedQuery<Category> query = entityManager.createNamedQuery("Category.findByCategory", Category.class);
         query.setParameter("category", categoryName);
         Category result = query.getSingleResult();
 
@@ -42,20 +42,20 @@ public class CategoryBean {
         Category category = new Category();
         category.setCategory(categoryName);
 
-        em.persist(category);
+        entityManager.persist(category);
     }
 
     public void updateCategory(Category category, String newCategoryName) {
-        if (!em.contains(category)) {
-            category = em.merge(category);
+        if (!entityManager.contains(category)) {
+            category = entityManager.merge(category);
         }
         category.setCategory(newCategoryName);
     }
 
     public void deleteCategory(Category category) {
-        if (!em.contains(category)) {
-            category = em.merge(category);
+        if (!entityManager.contains(category)) {
+            category = entityManager.merge(category);
         }
-        em.remove(category);
+        entityManager.remove(category);
     }
 }

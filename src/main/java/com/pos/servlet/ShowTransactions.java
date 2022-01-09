@@ -1,23 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.pos.servlet;
 
 import com.pos.bean.ProductBean;
 import com.pos.bean.TransactionBean;
 import com.pos.bean.TransactionTypeBean;
 import com.pos.bean.UserBean;
-import com.pos.entity.Product;
 import com.pos.entity.TransactionTable;
-import com.pos.utility.ParseDateTime;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author petel
- */
 @WebServlet(name = "ShowTransactions", urlPatterns = {"/ShowTransactions"})
 public class ShowTransactions extends HttpServlet {
     @Inject

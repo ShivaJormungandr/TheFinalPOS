@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.pos.servlet;
 
 import com.pos.bean.UserBean;
@@ -9,11 +5,9 @@ import com.pos.bean.RoleBean;
 import com.pos.decorator.ConsoleDecorator;
 import com.pos.entity.UserTable;
 import com.pos.entity.Role;
-import com.pos.observer.NotificationCenter;
 import com.pos.utility.Notification;
 import com.pos.utility.Password;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -22,10 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author petel
- */
 @WebServlet(name = "AddUser", urlPatterns = {"/AddUser"})
 public class AddUser extends HttpServlet {
 

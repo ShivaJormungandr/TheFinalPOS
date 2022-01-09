@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
- */
 package com.pos.bean;
 
 
@@ -13,19 +9,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author Tavi
- */
 @Stateless
 public class TransactionTypeBean {
 
         @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public List<TransactionType> getAllCategories() {
         try {
-            TypedQuery<TransactionType> query = em.createNamedQuery("TransactionType.findAll", TransactionType.class);
+            TypedQuery<TransactionType> query = entityManager.createNamedQuery("TransactionType.findAll", TransactionType.class);
             List<TransactionType> result = (List<TransactionType>) query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -34,11 +26,11 @@ public class TransactionTypeBean {
     }
 
     public TransactionType findById(Integer categoryId) {
-        return em.find(TransactionType.class, categoryId);
+        return entityManager.find(TransactionType.class, categoryId);
     }
 
     public TransactionType findByName(String typeName) {
-        TypedQuery<TransactionType> query = em.createNamedQuery("TransactionType.findByType", TransactionType.class);
+        TypedQuery<TransactionType> query = entityManager.createNamedQuery("TransactionType.findByType", TransactionType.class);
         query.setParameter("type", typeName);
         TransactionType result = query.getSingleResult();
 
@@ -51,21 +43,21 @@ public class TransactionTypeBean {
         TransactionType type = new TransactionType();
         type.setType(typeName);
 
-        em.persist(type);
+        entityManager.persist(type);
     }
 
     public void updateTransactionType(TransactionType type, String newTransactionTypeName) {
-        if (!em.contains(type)) {
-            type = em.merge(type);
+        if (!entityManager.contains(type)) {
+            type = entityManager.merge(type);
         }
         type.setType(newTransactionTypeName);
     }
 
     public void deleteTransactionType(TransactionType type) {
-        if (!em.contains(type)) {
-            type = em.merge(type);
+        if (!entityManager.contains(type)) {
+            type = entityManager.merge(type);
         }
-        em.remove(type);
+        entityManager.remove(type);
     }
 
 }

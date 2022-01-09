@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 public class UserBean {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public void CreateUser(String username, String password, String fullName, String role, String email) {
         System.getProperties().setProperty("derby.language.sequence.preallocator", String.valueOf(1));
@@ -36,12 +36,12 @@ public class UserBean {
         }
         user.setEmail(email);
 
-        em.persist(user);
+        entityManager.persist(user);
     }
 
     public void updateUser(UserTable user, String newUsername, String newPassword, String newFullName, String newRole, String newEmail, String newState) {
-        if (!em.contains(user)) {
-            user = em.merge(user);
+        if (!entityManager.contains(user)) {
+            user = entityManager.merge(user);
         }
         if (newUsername != null) {
             user.setUsername(newUsername);
@@ -64,21 +64,21 @@ public class UserBean {
     }
 
     public void deleteUsersByIds(UserTable user) {
-        if (!em.contains(user)) {
-            user = em.merge(user);
+        if (!entityManager.contains(user)) {
+            user = entityManager.merge(user);
         }
-        em.remove(user);
+        entityManager.remove(user);
     }
 
     private Role getRoleByName(String role) {
-        Query query = em.createQuery("SELECT r FROM Role r WHERE r.role = :role").setParameter("role", role).setMaxResults(1);
+        Query query = entityManager.createQuery("SELECT r FROM Role r WHERE r.role = :role").setParameter("role", role).setMaxResults(1);
         Role r = (Role) query.getSingleResult();
 
         return r;
     }
 
     private State getStateByName(String state) {
-        Query query = em.createQuery("SELECT s FROM State s WHERE s.state = :state").setParameter("state", state).setMaxResults(1);
+        Query query = entityManager.createQuery("SELECT s FROM State s WHERE s.state = :state").setParameter("state", state).setMaxResults(1);
         State s = (State) query.getSingleResult();
 
         return s;
@@ -86,7 +86,7 @@ public class UserBean {
 
     public List<UserTable> getAllUsers() {
         try {
-            TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findAll", UserTable.class);
+            TypedQuery<UserTable> query = entityManager.createNamedQuery("UserTable.findAll", UserTable.class);
             List<UserTable> users = query.getResultList();
             return users;
         } catch (Exception ex) {
@@ -95,7 +95,7 @@ public class UserBean {
     }
 
     public UserTable getByUsername(String username) {
-        TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findByUsername", UserTable.class);
+        TypedQuery<UserTable> query = entityManager.createNamedQuery("UserTable.findByUsername", UserTable.class);
         query.setParameter("username", username);
         UserTable result = query.getSingleResult();
 
@@ -103,7 +103,7 @@ public class UserBean {
     }
 
     public UserTable getById(int id) {
-        TypedQuery<UserTable> query = em.createNamedQuery("UserTable.findById", UserTable.class);
+        TypedQuery<UserTable> query = entityManager.createNamedQuery("UserTable.findById", UserTable.class);
         query.setParameter("id", id);
         UserTable result = query.getSingleResult();
 
@@ -111,7 +111,7 @@ public class UserBean {
     }
 
     public String getPasswordByUsername(String username) {
-        Query query = em.createQuery("SELECT u FROM UserTableEntity u WHERE u.username = :username").setParameter("username", username).setMaxResults(1);
+        Query query = entityManager.createQuery("SELECT u FROM UserTable u WHERE u.username = :username").setParameter("username", username).setMaxResults(1);
         UserTable user = (UserTable) query.getSingleResult();
 
         return user.getPassword();

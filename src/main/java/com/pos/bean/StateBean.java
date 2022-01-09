@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
- */
 package com.pos.bean;
 
 
@@ -13,19 +9,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author Tavi
- */
 @Stateless
 public class StateBean {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public List<State> getAllStates() {
         try {
-            TypedQuery<State> query = em.createNamedQuery("State.findAll", State.class);
+            TypedQuery<State> query = entityManager.createNamedQuery("State.findAll", State.class);
             List<State> result = (List<State>) query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -34,11 +26,11 @@ public class StateBean {
     }
 
     public State findById(Integer stateId) {
-        return em.find(State.class, stateId);
+        return entityManager.find(State.class, stateId);
     }
 
     public State findByName(String stateName) {
-        TypedQuery<State> query = em.createNamedQuery("State.findByState", State.class);
+        TypedQuery<State> query = entityManager.createNamedQuery("State.findByState", State.class);
         query.setParameter("state", stateName);
         State result = query.getSingleResult();
 
@@ -51,20 +43,20 @@ public class StateBean {
         State state = new State();
         state.setState(stateName);
 
-        em.persist(state);
+        entityManager.persist(state);
     }
 
     public void updateState(State state, String newStateName) {
-        if (!em.contains(state)) {
-            state = em.merge(state);
+        if (!entityManager.contains(state)) {
+            state = entityManager.merge(state);
         }
         state.setState(newStateName);
     }
 
     public void deleteState(State state) {
-        if (!em.contains(state)) {
-            state = em.merge(state);
+        if (!entityManager.contains(state)) {
+            state = entityManager.merge(state);
         }
-        em.remove(state);
+        entityManager.remove(state);
     }
 }

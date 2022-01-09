@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.pos.servlet;
 
 import com.pos.bean.ProductBean;
 import com.pos.bean.UserBean;
 import com.pos.entity.Product;
-import com.pos.entity.UserTable;
-import com.pos.utility.LoggedUsers;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

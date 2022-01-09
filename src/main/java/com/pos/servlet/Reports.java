@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.pos.servlet;
 
 import com.pos.bean.TransactionBean;
 import com.pos.bean.UserBean;
 import com.pos.entity.TransactionTable;
-import com.pos.entity.UserTable;
-import com.pos.utility.LoggedUsers;
-import com.pos.utility.ParseDateTime;
+import com.pos.utility.ParseDateTimeValue;
 import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;
@@ -49,8 +43,8 @@ public class Reports extends HttpServlet {
                 request.setAttribute("allTransactions", transactions);
                 request.getRequestDispatcher("/WEB-INF/pages/reportTransactionsTable.jsp").forward(request, response);
             } else if (report.equals("dates")) {
-                String fromDate = ParseDateTime.fromStringDateToTimestamp(request.getParameter("fromDate"));
-                String toDate = ParseDateTime.fromStringDateToTimestamp(request.getParameter("toDate"));
+                String fromDate = ParseDateTimeValue.fromStringDateToTimestamp(request.getParameter("fromDate"));
+                String toDate = ParseDateTimeValue.fromStringDateToTimestamp(request.getParameter("toDate"));
                 
                 System.out.println(fromDate);
                 

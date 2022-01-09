@@ -12,12 +12,11 @@ import com.pos.payment.ProcessCardPayment;
 import com.pos.payment.ProcessCashPayment;
 import com.pos.payment.ProcessPayment;
 import com.pos.utility.Cart;
-import com.pos.utility.CartType;
 import com.pos.utility.CurrentCarts;
 import com.pos.utility.LoggedUsers;
-import com.pos.utility.ParseDateTime;
+import static com.pos.utility.ParseDateTimeValue.computeTaxes;
+import static com.pos.utility.ParseDateTimeValue.computeTotalSumOfCart;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
@@ -56,7 +55,8 @@ public class ProcessSale extends HttpServlet {
         
         Cart currentCart = CurrentCarts.getInstance().getCartByCashierId(cashierId);
         List<Product> productsInCart = currentCart.getProductsInCart();
-        double sum = productsInCart.stream().mapToDouble(p -> p.getPrice()).sum();
+        double sum = computeTotalSumOfCart(productsInCart);
+        double TVA = 0.19;
 
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
         TransactionTable currentTransaction = transactionBean.createTransaction(date, transactionTypeBean.findByName(cartType), LoggedUsers.getInstance().getLoggedUserById(cashierId), rentalReturnDate);
@@ -89,8 +89,8 @@ public class ProcessSale extends HttpServlet {
             builder.setId(currentTransaction.getId());
             builder.setTitle("COMPLEX: Multumim ca ati ales saptamana comunista Lidl!");
             builder.setProducts(productsInCart);
-            builder.setTotalAmount(ParseDateTime.roundToTwoDecimals(sum));
-            builder.setTaxesAmount(ParseDateTime.roundToTwoDecimals(sum* 0.09));
+            builder.setTotalAmount(sum);
+            builder.setTaxesAmount(computeTaxes(sum, TVA));
             builder.setDate(date);
             builder.setCashier(transactionBean.findById(currentTransaction.getId()).getIdCashier());
         }

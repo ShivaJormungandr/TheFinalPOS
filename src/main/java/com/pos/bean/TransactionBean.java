@@ -1,7 +1,3 @@
- /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
- */
 package com.pos.bean;
 
 import com.pos.entity.Product;
@@ -9,7 +5,8 @@ import com.pos.entity.TransactedProducts;
 import com.pos.entity.TransactionTable;
 import com.pos.entity.TransactionType;
 import com.pos.entity.UserTable;
-import com.pos.utility.ParseDateTime;
+import com.pos.utility.ParseDateTimeValue;
+import static com.pos.utility.ParseDateTimeValue.roundToTwoDecimals;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import javax.ejb.EJBException;
@@ -19,19 +16,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author Tavi
- */
 @Stateless
 public class TransactionBean {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public List<TransactionTable> getAllTransactions() {
         try {
-            TypedQuery<TransactionTable> query = em.createNamedQuery("TransactionTable.findAll", TransactionTable.class);
+            TypedQuery<TransactionTable> query = entityManager.createNamedQuery("TransactionTable.findAll", TransactionTable.class);
             List<TransactionTable> result = query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -41,7 +34,7 @@ public class TransactionBean {
 
     public List<TransactionTable> getTransactionsBetweenDates(String dateFrom, String dateTo) {
         try {
-            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.transactionDate BETWEEN '" + ParseDateTime.parseTimestamp(dateFrom) + "' AND '" + ParseDateTime.parseTimestamp(dateTo) + "'");
+            Query query = entityManager.createQuery("SELECT t FROM TransactionTable t WHERE t.transactionDate BETWEEN '" + ParseDateTimeValue.parseTimestamp(dateFrom) + "' AND '" + ParseDateTimeValue.parseTimestamp(dateTo) + "'");
             List<TransactionTable> result = query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -51,7 +44,7 @@ public class TransactionBean {
 
     public List<TransactionTable> getTransactionsBetweenValues(double valueFrom, double valueTo) {
         try {
-            Query query = em.createQuery("SELECT t FROM TransactionTable t WHERE t.value BETWEEN " + valueFrom + " AND " + valueTo);
+            Query query = entityManager.createQuery("SELECT t FROM TransactionTable t WHERE t.value BETWEEN " + valueFrom + " AND " + valueTo);
             List<TransactionTable> result = query.getResultList();
             return result;
         } catch (Exception ex) {
@@ -69,7 +62,7 @@ public class TransactionBean {
     }
 
     public TransactionTable findById(Integer transactionId) {
-        TransactionTable transaction = em.find(TransactionTable.class, transactionId);
+        TransactionTable transaction = entityManager.find(TransactionTable.class, transactionId);
         return transaction;
     }
 
@@ -85,7 +78,7 @@ public class TransactionBean {
         transaction.setIdType(type);
         transaction.setIdCashier(user);
 
-        em.persist(transaction);
+        entityManager.persist(transaction);
         return transaction;
     }
     
@@ -103,15 +96,14 @@ public class TransactionBean {
         transactedProducts.setIdTransaction(transaction);
         transactedProducts.setIdProduct(product);
         
-        em.persist(transactedProducts);
+        entityManager.persist(transactedProducts);
     }
     
     private void calculateTotalValue(TransactionTable transaction, List<Product> products){
-        //TODO: This was made for testing purposes only, just a simple sum
-        Double sum = products.stream().mapToDouble(x -> x.getPrice()).sum();
+        Double sum = roundToTwoDecimals(products.stream().mapToDouble(x -> x.getPrice()).sum());
         
-        if (!em.contains(transaction)) {
-            transaction = em.merge(transaction);
+        if (!entityManager.contains(transaction)) {
+            transaction = entityManager.merge(transaction);
         }
         
         if (transaction.getIdType().getType().equals("Return")) {
@@ -123,16 +115,16 @@ public class TransactionBean {
 
     public void removeProductFromTransaction(TransactionTable transaction, Product product) {
         try {
-            Query query = em.createQuery("SELECT t FROM TransactedProducts t WHERE t.idProduct = :idProduct AND t.idTransaction = :idTransaction")
+            Query query = entityManager.createQuery("SELECT t FROM TransactedProducts t WHERE t.idProduct = :idProduct AND t.idTransaction = :idTransaction")
                     .setParameter("idTransaction", transaction)
                     .setParameter("idProduct", product);
             List<TransactedProducts> result = query.getResultList();
             for (TransactedProducts tp : result) {
                 //TODO: Test it, it may here
-                if (!em.contains(tp)) {
-                    tp = em.merge(tp);
+                if (!entityManager.contains(tp)) {
+                    tp = entityManager.merge(tp);
                 }
-                em.remove(tp);
+                entityManager.remove(tp);
             }
         } catch (Exception ex) {
             throw new EJBException(ex);
@@ -140,9 +132,9 @@ public class TransactionBean {
     }
 
     public void deleteTransaction(TransactionTable transaction) {
-        if (!em.contains(transaction)) {
-            transaction = em.merge(transaction);
+        if (!entityManager.contains(transaction)) {
+            transaction = entityManager.merge(transaction);
         }
-        em.remove(transaction);
+        entityManager.remove(transaction);
     }
 }

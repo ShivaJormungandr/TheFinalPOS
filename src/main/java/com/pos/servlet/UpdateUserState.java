@@ -5,7 +5,6 @@ import com.pos.bean.UserBean;
 import com.pos.entity.UserTable;
 import com.pos.utility.Notification;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

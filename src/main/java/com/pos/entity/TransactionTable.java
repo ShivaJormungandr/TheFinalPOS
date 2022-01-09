@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.pos.entity;
 
 import java.io.Serializable;
@@ -23,10 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author Tavi
- */
 @Entity
 @Table(name = "TRANSACTION_TABLE", catalog = "", schema = "DBA")
 @NamedQueries({
@@ -46,7 +38,6 @@ public class TransactionTable implements Serializable {
     @Column(name = "TRANSACTION_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date transactionDate;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(precision = 52)
     private Double value;
     @Column(name = "RENTAL_RETURN_DATE")
@@ -133,7 +124,6 @@ public class TransactionTable implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof TransactionTable)) {
             return false;
         }

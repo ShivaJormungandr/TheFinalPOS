@@ -1,12 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.pos.servlet;
 
 import com.pos.bean.RoleBean;
-import com.pos.bean.TransactionBean;
-import com.pos.bean.TransactionTypeBean;
 import com.pos.bean.UserBean;
 import com.pos.entity.Role;
 import com.pos.entity.UserTable;
@@ -20,10 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Tavi
- */
 @WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
 
@@ -50,7 +40,6 @@ public class TestServlet extends HttpServlet {
         List<Role> allRolesAfterDelete = roleBean.getAllRoles();
 
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

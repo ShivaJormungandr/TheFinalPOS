@@ -4,7 +4,6 @@ import com.pos.bean.UserBean;
 import com.pos.entity.UserTable;
 import com.pos.utility.LoggedUsers;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -58,6 +57,6 @@ public class DeleteUser extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

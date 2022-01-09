@@ -3,7 +3,6 @@ package com.pos.servlet;
 import com.pos.bean.CategoryBean;
 import com.pos.entity.Category;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
