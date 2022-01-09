@@ -54,6 +54,9 @@
                             </c:forEach>
                             <div class="section-title">
                                 <h3>Scan a product.</h3>
+                                <c:if test="${err_product != null}">
+                                    <div style="color: #bb2d3b">${err_product}</div>
+                                </c:if>
                                 <form action='/TheFinalPOS/ShowCart' method='get'>
                                     <input name='productId' />
                                     <input type='submit' value='Scan' />
@@ -62,7 +65,7 @@
                                 </form>
                             </div>
                         </c:if>
-                        <c:if test="${action == 'Sale'}">
+                        <c:if test="${action == 'Sale' || action=='Return'}">
 
                             <div class="section-title">
                                 <h3>Choose a category.</h3>
@@ -90,7 +93,7 @@
                             </div>
                         </c:if>
                         <c:if test="${action == 'Return'}">
-                            <div class="section-title">
+<!--                            <div class="section-title">
                                 <h3>Scan a product you wish to return.</h3>
                                 <form action='/TheFinalPOS/ShowCart' method='get'>
                                     <input name='productId' />
@@ -98,7 +101,7 @@
                                     <input type="text" name="cashierId" value="${cashierId}" style="visibility: collapse;position: absolute" />
                                     <input type='text' name="quantity" value="1" style="visibility: collapse;position: absolute" />
                                 </form>
-                            </div>
+                            </div>-->
                         </c:if>
                     </div>
                 </div>

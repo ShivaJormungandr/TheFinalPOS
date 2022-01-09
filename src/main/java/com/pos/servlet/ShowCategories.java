@@ -31,7 +31,6 @@ public class ShowCategories extends HttpServlet {
         int cashierId = Integer.parseInt(request.getParameter("cashierId"));
         List<Category> categories =  categoryBean.getAllCategories();
         
-        // here will be cart Type set (sale, rental, return), if () after actionType
         CartType cartType = CartType.valueOf(actionType);
         System.out.println(cartType);
         
@@ -44,6 +43,9 @@ public class ShowCategories extends HttpServlet {
         request.setAttribute("allCategories", categories);
         request.setAttribute("action", actionType);
         request.setAttribute("cashierId", cashierId);
+        if (request.getParameter("err_product") != null){
+            request.setAttribute("err_product", request.getParameter("err_product"));
+        }
 
         request.getRequestDispatcher("/WEB-INF/pages/categories.jsp").forward(request, response);
     }

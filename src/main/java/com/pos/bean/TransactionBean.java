@@ -114,6 +114,10 @@ public class TransactionBean {
             transaction = em.merge(transaction);
         }
         
+        if (transaction.getIdType().getType().equals("Return")) {
+            sum = -sum;
+        }
+        
         transaction.setValue(sum);
     }
 
