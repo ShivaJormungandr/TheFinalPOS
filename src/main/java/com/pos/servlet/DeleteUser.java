@@ -21,6 +21,7 @@ public class DeleteUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        int loggedUserId = Integer.parseInt(request.getParameter("loggedUserId"));
         int id = Integer.parseInt(request.getParameter("id"));
         System.out.println(id);
         UserTable user = null;
@@ -28,14 +29,11 @@ public class DeleteUser extends HttpServlet {
         try{
             user = userBean.getById(id);
             System.out.println(user);
-            //userBean.deleteUsersByIds(user);
+            userBean.deleteUsersByIds(user);
             request.setAttribute("delete_msg", "User " + user + " has been deleted!");
-            List<UserTable> users = userBean.getAllUsers();
-            request.setAttribute("allUsers", users);
-            request.setAttribute("loggedUser", LoggedUsers.getInstance().getLoggedUserById(id).getFullname());
-            request.getRequestDispatcher("/WEB-INF/pages/adminView.jsp").forward(request, response);
-        }catch(Exception ex){
-            ex.printStackTrace();
+            
+            response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + loggedUserId);
+        }catch(IOException ex){
         }
     }
 

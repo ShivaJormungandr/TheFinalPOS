@@ -144,7 +144,7 @@
                                                                     <c:forEach var="user" items="${allUsers}">
                                                                         <c:if test="${user.idState == 'Accepted'}">
                                                                             <tr>
-                                                                                <th>${user.id}</th>
+                                                                                <th>${i}</th>
                                                                                 <td>${user.fullname}</td>
                                                                                 <td>${user.username}</td>
                                                                                 <td>${user.email}</td>
@@ -153,24 +153,7 @@
                                                                                     <span class="badge bg-success">${user.idState}</span>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredA">❌</button>
-                                                                                    <div class="modal fade" id="verticalycenteredA" tabindex="-1">
-                                                                                        <div class="modal-dialog modal-dialog-centered">
-                                                                                            <div class="modal-content">
-                                                                                                <div class="modal-header">
-                                                                                                    <h5 class="modal-title">Delete User</h5>
-                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                                </div>
-                                                                                                <div class="modal-body">
-                                                                                                    Are you sure you want to delete ${user.fullname}?
-                                                                                                </div>
-                                                                                                <div class="modal-footer">
-                                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                                    <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${user.id}&loggedUserId=${loggedUser.getId()}'">Delete</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    <button type="button" onclick="if(confirm('Are you sure you want to delete ${user.fullname}?')) location.href = '/TheFinalPOS/DeleteUser?id=${user.id}&loggedUserId=${loggedUser.id}'" >❌</button>
                                                                                 </td>
                                                                                 <td>
                                                                                     <button type="button" onclick="location.href = '/TheFinalPOS/EditUser?userId=${user.id}&loggedUserId=${loggedUser.getId()}'">🖍️️</button>
@@ -246,24 +229,7 @@
                                                                                         <span class="badge bg-warning">${user.idState}</span>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredP">Delete</button>
-                                                                                        <div class="modal fade" id="verticalycenteredP" tabindex="-1">
-                                                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                                                <div class="modal-content">
-                                                                                                    <div class="modal-header">
-                                                                                                        <h5 class="modal-title">Delete User</h5>
-                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                                    </div>
-                                                                                                    <div class="modal-body">
-                                                                                                        Are you sure you want to delete ${user.fullname}?
-                                                                                                    </div>
-                                                                                                    <div class="modal-footer">
-                                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                                        <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteUser?id=${user.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                        <button type="button" onclick="if(confirm('Are you sure you want to delete ${user.fullname}?')) location.href = '/TheFinalPOS/DeleteUser?id=${user.id}&loggedUserId=${loggedUser.id}'" >Delete</button>
                                                                                     </td>
                                                                                 </c:if>
                                                                             </tr>
@@ -297,24 +263,7 @@
                                                                         <td>${product.productName}</td>
                                                                         <td>${product.price}</td>
                                                                         <td>
-                                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredP">❌</button>
-                                                                            <div class="modal fade" id="verticalycenteredP" tabindex="-1">
-                                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h5 class="modal-title">Delete Product</h5>
-                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                            Are you sure you want to delete ${product.getProductName()}?
-                                                                                        </div>
-                                                                                        <div class="modal-footer">
-                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                            <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteProduct?id=${product.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                            <button type="button" onclick="if(confirm('Are you sure you want to delete ${product.getProductName()}?')) location.href = '/TheFinalPOS/DeleteProduct?id=${product.getId()}&loggedUserId=${loggedUser.id}'" >❌</button>
                                                                         </td>
                                                                         <td>
                                                                             <button type="button" onclick="location.href = '/TheFinalPOS/EditProduct?productId=${product.getId()}&loggedUserId=${loggedUser.id}'">🖍️️</button>
@@ -344,24 +293,7 @@
                                                                         <th scope="row">${i}</th>
                                                                         <td>${category.category}</td>
                                                                         <td>
-                                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#verticalycenteredC">❌</button>
-                                                                            <div class="modal fade" id="verticalycenteredC" tabindex="-1">
-                                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h5 class="modal-title">Delete Category</h5>
-                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                            Are you sure you want to delete ${category.getCategory()}?
-                                                                                        </div>
-                                                                                        <div class="modal-footer">
-                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                            <button type="button" class="btn btn-primary" onclick="location.href = '/TheFinalPOS/DeleteCategory?id=${category.getId()}&loggedUserId=${loggedUser.id}'">Delete</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                            <button type="button" onclick="if(confirm('Are you sure you want to delete ${category.getCategory()}?')) location.href = '/TheFinalPOS/DeleteCategory?id=${category.getId()}&loggedUserId=${loggedUser.id}'">❌</button>
                                                                         </td>
                                                                         <td>
                                                                             <button type="button" onclick="location.href = '/TheFinalPOS/EditCategory?categoryId=${category.getId()}&loggedUserId=${loggedUser.id}'">🖍️️</button>
@@ -389,7 +321,7 @@
                 >. All Rights Reserved
             </div>
             <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                Designed by <a href="">DreamTeam</a>
             </div>
         </footer>
 

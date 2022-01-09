@@ -94,12 +94,12 @@
                     <li class="nav-item dropdown pe-3">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser.getId()}</span>
+                            <span class="d-none d-md-block dropdown-toggle ps-2">${loggedUser.getFullname()}</span>
                         </a><!-- End Profile Iamge Icon -->
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                             <li class="dropdown-header">
-                                <h6>${loggedUser.getId()}</h6>
+                                <h6>${loggedUser.getFullname()}</h6>
                                 <span>Director</span>
                             </li>
                             <li>
@@ -136,6 +136,7 @@
                                         </div>
                                         <div class="row mb-3" >
                                             <div class="col-sm-10">
+                                                <input type="text" value="${loggedUser.getId()}" name="loggedUserId" style="visibility: collapse; position: absolute" />
                                                 <button type="submit" class="btn btn-primary">View</button>
                                             </div>
                                         </div>

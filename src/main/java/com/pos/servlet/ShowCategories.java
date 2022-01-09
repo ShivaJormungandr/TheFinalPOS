@@ -27,12 +27,7 @@ public class ShowCategories extends HttpServlet {
         List<Category> categories =  categoryBean.getAllCategories();
         
         CartType cartType = CartType.valueOf(actionType);
-        System.out.println(cartType);
-        
-        if (CurrentCarts.getInstance().doesCashierHaveCart(cashierId)) {
-            CurrentCarts.getInstance().removeCartForCashier(cashierId);
-        }
-        
+      
         CurrentCarts.getInstance().createNewCartForCashier(cashierId,cartType);
         
         request.setAttribute("allCategories", categories);

@@ -98,6 +98,7 @@ public class ProcessSale extends HttpServlet {
         Receipt receipt = builder.getResult();
         
         currentCart.proceedPayment();
+        CurrentCarts.getInstance().removeCartForCashier(cashierId);
 
         request.setAttribute("receipt", receipt);
         request.setAttribute("paymentType", paymentType);
