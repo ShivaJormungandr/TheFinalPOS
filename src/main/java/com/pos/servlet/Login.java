@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
 
     @Inject
     RoleBean roleBean;
-    
+
     @Inject
     TransactionTypeBean transactionTypeBean;
 
@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
         if ((username == null || "".equals(username)) && (password == null || "".equals(password))) {
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
-        
+
         UserTable user = null;
 
         try {
@@ -45,14 +45,22 @@ public class Login extends HttpServlet {
             request.setAttribute("err_msg_user", "Invalid username.");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
-        
+
         if (!user.getPassword().equals(Password.convertToSha256(password))) {
             request.setAttribute("err_msg_pass", "Passwords do not match");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         } else {
-            LoggedUsers.getInstance().addLoggedUser(user);
+            if (user.getIdState().getState().equals("Pending")) {
 
-            response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + user.getId());
+                request.setAttribute("err_msg_pass", "User is pending approval.");
+                request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+
+            } else {
+                LoggedUsers.getInstance().addLoggedUser(user);
+
+                response.sendRedirect("http://localhost:8080/TheFinalPOS/View?userId=" + user.getId());
+            }
+
         }
     }
 
