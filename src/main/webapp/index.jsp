@@ -80,7 +80,7 @@
         <div class="section-title">
           <h2>Team</h2>
           <h3>Our Hardworking <span>Team</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+          <p>The Dream Team.</p>
         </div>
 
         <div class="row">
@@ -88,14 +88,14 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="member">
               <div class="member-img">
-                <img src="${pageContext.request.contextPath}/assetsLP/img/team/team-1.jpg" class="img-fluid" alt="">
+                <img src="${pageContext.request.contextPath}/assets/img/team/team-1.jpg" class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href="https://www.facebook.com/darius.peteleaza"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.instagram.com/peteleaza.darius/"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">
-                <h4>Walter White</h4>
+                <h4>Peteleaza Darius</h4>
                 <span>Chief Executive Officer</span>
               </div>
             </div>
@@ -104,14 +104,14 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="member">
               <div class="member-img">
-                <img src="${pageContext.request.contextPath}/assetsLP/img/team/team-2.jpg" class="img-fluid" alt="">
+                <img src="${pageContext.request.contextPath}/assets/img/team/team-2.jpg" class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.facebook.com/profile.php?id=100001242529519"><i class="bi bi-facebook"></i></a>
                   <a href=""><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">
-                <h4>Sarah Jhonson</h4>
+                <h4>Saftoiu Octavian-Ion</h4>
                 <span>Product Manager</span>
               </div>
             </div>
@@ -120,14 +120,14 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="member">
               <div class="member-img">
-                <img src="${pageContext.request.contextPath}/assetsLP/img/team/team-3.jpg" class="img-fluid" alt="">
+                <img src="${pageContext.request.contextPath}/assets/img/team/team-3.jpg" class="img-fluid" alt="" height="446">
                 <div class="social">
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href="https://www.facebook.com/larionescu.adrian"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.instagram.com/adrian.larionescu/"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">
-                <h4>William Anderson</h4>
+                <h4>Larionescu Adrian</h4>
                 <span>CTO</span>
               </div>
             </div>
@@ -136,14 +136,14 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
             <div class="member">
               <div class="member-img">
-                <img src="${pageContext.request.contextPath}/assetsLP/img/team/team-4.jpg" class="img-fluid" alt="">
+                <img src="${pageContext.request.contextPath}/assets/img/team/team-4.jpg" class="img-fluid" alt="" height="446">
                 <div class="social">
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href="https://www.facebook.com/andreistelian21/"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.instagram.com/s_andrei21/"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">
-                <h4>Amanda Jepson</h4>
+                <h4>Stelian Andrei</h4>
                 <span>Accountant</span>
               </div>
             </div>
